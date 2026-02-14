@@ -1,0 +1,129 @@
+server:
+  listen_addr: 0.0.0.0
+  http_port: 8080
+  https_port: 8443
+  shutdown_timeout: 30s
+  request_timeout: 1m
+  max_connections: 10000
+  tls:
+    enabled: false
+    cert_path: certs/server.crt
+    key_path: certs/server.key
+    min_version: TLS1.3
+    cipher_suites:
+      - TLS_AES_256_GCM_SHA384
+      - TLS_AES_128_GCM_SHA256
+      - TLS_CHACHA20_POLY1305_SHA256
+upstream:
+  backend_url: http://localhost:3000
+  pool_size: 100
+  connect_timeout: 5s
+  request_timeout: 30s
+  idle_timeout: 1m 30s
+  health_check:
+    enabled: true
+    path: /health
+    interval: 10s
+    timeout: 5s
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+detection:
+  enabled: true
+  mode: blocking
+  crs:
+    enabled: true
+    rules_path: rules/crs
+    paranoia_level: 1
+    inbound_threshold: 100
+    outbound_threshold: 4
+  rate_limiting:
+    enabled: true
+    requests_per_second: 100
+    burst_size: 200
+    ban_duration_secs: 60
+  blocking_threshold: 100
+  challenge_threshold: 50
+  bot_detection:
+    enabled: false
+    fingerprint_check: true
+    behavior_analysis: true
+    block_threshold: 0.8
+ml:
+  enabled: true
+  model_path: ml/models/isolation_forest.onnx
+  classifier_model_path: ml/models/attack_classifier.onnx
+  scaler_path: ml/models/scaler.json
+  threshold: 0.7
+  inference_threads: 4
+  cache_features: true
+  ml_weight: 0.3
+  shadow_mode: false
+  fail_open: true
+wasm:
+  enabled: false
+  plugins_dir: plugins
+  max_memory_mb: 10
+  max_execution_time_ms: 10
+  fuel_limit: 1000000
+threat_intel:
+  enabled: false
+  feeds: []
+  cache_ttl_hours: 24
+  score_threshold: 70
+shadow:
+  enabled: false
+  percentage: 10
+  duration: null
+  routes: null
+ebpf:
+  enabled: false
+  interface: eth0
+telemetry:
+  log_level: debug
+  log_format: json
+  metrics_enabled: true
+  metrics_port: 9090
+  tracing_enabled: true
+  tracing_sample_rate: 0.1
+security:
+  admin_token: "admin"
+  max_body_size: 10485760
+  max_header_size: 8192
+  max_uri_length: 2048
+  allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    - OPTIONS
+  blocked_user_agents: []
+api_protection:
+  enabled: true
+  openapi_validation_enabled: false
+  openapi_specs: []
+  graphql:
+    endpoint: /graphql
+    max_depth: 7
+    max_complexity: 1000
+    max_batch_size: 10
+    max_aliases: 50
+    introspection_enabled: false
+    rate_limits: null
+    field_costs: null
+    auth_rules: []
+  strict_mode: false
+policy:
+  source:
+    type_: local
+    repo: null
+    branch: main
+    auth:
+      type: none
+    poll_interval_seconds: 60
+    files:
+      - config/waf.yaml
+  validation:
+    mode: strict
+    dry_run: true

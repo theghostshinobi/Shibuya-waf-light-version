@@ -1,0 +1,35 @@
+feeds:
+  alienvault_otx:
+    enabled: true
+    api_key: "${OTX_API_KEY}"
+    update_interval: 15m
+
+  abuseipdb:
+    enabled: true
+    api_key: "${ABUSEIPDB_API_KEY}"
+    update_interval: 1h
+
+  tor:
+    enabled: true
+    update_interval: 30m
+
+  spamhaus:
+    enabled: true
+    update_interval: 6h
+
+storage:
+  redis:
+    addr: "localhost:6379"
+    db: 0
+    password: ""
+
+  postgres:
+    dsn: "postgres://user:pass@localhost/threatintel"
+
+grpc:
+  listen: "0.0.0.0:50051"
+  max_connections: 1000
+
+logging:
+  level: "info"
+  format: "json"

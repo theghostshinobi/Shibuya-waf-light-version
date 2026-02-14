@@ -1,0 +1,78 @@
+# Episode 2: HTTP Parser & Transformation Engine
+
+## 1. Architecture Overview
+
+Wait, I should format this properly.
+
+The WAF Parser sits between the raw HTTP request and the Rule Engine. It normalizes input to prevent evasion.
+
+```
+Request (Raw) --> [Proxy Filter] --> [HTTP Parser] --> [Transformation Pipeline] --> [RequestContext] --> [Rule Engine]
+                                         |
+                                         +--> Body Parsing (JSON, Form, Multipart)
+                                         |
+                                         +--> Metadata Extraction (Entropy, etc.)
+```
+
+### Parsing Phases
+1. **Header Parsing**: Extracts Method, URI, Headers, Client IP.
+2. **Body Parsing**:
+   - Buffers body (up to 10MB).
+   - Detects Content-Type.
+   - Parses JSON, Form URL Encoded, or Multipart.
+   - Extracts raw text for other types.
+3. **Transformation**:
+   - Applies 11 normalization functions to ALL inputs (URI, Query, Body, Headers).
+   - Stores both original and transformed values.
+4. **Context Creation**:
+   - populates `RequestContext` struct with all derived data.
+
+## 2. Transformation Catalog
+
+The following transformations are applied in order (`TransformPipeline::apply`):
+
+| Order | Transformation | Purpose | Example |
+|-------|----------------|---------|---------|
+| 1 | `url_decode_recursive` | Decodes %XX sequences (depth 5) | `%2527` -> `'` |
+| 2 | `html_entity_decode` | Decodes HTML entities | `&lt;` -> `<` |
+| 3 | `base64_decode` | Decodes Base64 if detected | `JyA=` -> `' ` |
+| 4 | `unicode_normalize` | NFC Normalization | `\u0027` -> `'` |
+| 5 | `remove_null_bytes` | Removes \0 | `%00` -> `` |
+| 6 | `lowercase` | Case insensitivity | `SELECT` -> `select` |
+
+**Other Utilities:**
+- `remove_sql_comments`: Removes `--`, `/* */`, `#`.
+- `normalize_path`: Collapses `//`, handles `..`.
+- `count_special_chars`: Anomaly detection.
+- `calculate_entropy`: Anomaly detection.
+
+## 3. Adding Custom Transformations
+
+To add a new transformation:
+1. Add function in `src/parser/transforms.rs`.
+2. Add unit test in `tests/parser_tests.rs`.
+3. Add to `TransformPipeline::apply` sequence if it should be global.
+
+## 4. Performance Tuning
+
+- **Body Size Limit**: Default 10MB. Configurable in `proxy.rs` (needs to be moved to `config.rs`).
+- **Regex Compilation**: All regexes are compiled once using `lazy_static`.
+- **Allocations**: We use `Cow<str>` in transformations to minimize cloning where possible, but storing the final `RequestContext` involves allocations.
+
+## 5. Attack Payload Examples
+
+### SQL Injection (Encoded)
+Original: `1%2527%2520OR%2520%25271%2527%253D%25271`
+Transformed: `1' or '1'='1`
+Detection: Rule engine matches `' or '`
+
+### XSS (Obfuscated)
+Original: `\u003Cscript\u003Ealert(1)\u003C/script\u003E`
+Transformed: `<script>alert(1)</script>`
+Detection: Rule engine matches `<script>`
+
+## 6. Known Limitations
+
+- **Streaming**: Currently buffers full body. Large file uploads might be slow or rejected.
+- **JSON Depth**: Does not recursively flatten deep JSON structures for "all_values" extraction yet (only string representation).
+- **HTTP/3**: Supported transparently by Pingora but parser treats it same as HTTP/1/2.

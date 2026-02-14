@@ -1,0 +1,45 @@
+# Episode 3: Rule Engine + OWASP CRS Integration
+
+## Architecture
+
+The Rule Engine is the core component that decides whether to Block or Allow a request based on ModSecurity SecLang rules.
+
+### Components
+
+1.  **Parser (`rules/parser.rs`)**: Uses `nom` to parse SecLang syntax into `Rule` structs. Supports variables, operators, transformations, and actions.
+2.  **Engine (`rules/engine.rs`)**: Iterates through rules, executing them against the `RequestContext` created in Episode 2.
+3.  **Scoring (`rules/scoring.rs`)**: Implements Anomaly Scoring. Each matched rule increments `tx.anomaly_score`. Specific attack types (SQLi, XSS) have their own sub-scores.
+4.  **Loader (`rules/loader.rs`)**: Recursively loads `.conf` files from `rules/owasp-crs` and `rules/custom`.
+
+### Integration
+
+The `RuleEngine` is initialized in `main.rs` and passed to `WafProxy`.
+In `WafProxy::request_filter`, after the request body is buffered and parsed, `rule_engine.inspect_request(&parsed_context)` is called.
+If the result is `InspectionAction::Block`, the proxy returns 403.
+
+## OWASP CRS Integration
+
+The engine is designed to run the OWASP Core Rule Set (v4).
+Rules are loaded from `rules/owasp-crs/rules/`.
+Configuration is handled via `config/waf.yaml`.
+
+## Writing Custom Rules
+
+Place custom rules in `rules/custom/*.conf`.
+Format:
+```modsecurity
+SecRule ARGS:param "@rx malicious_pattern" \
+    "id:1000,phase:2,block,msg:'Malicious Param Detected',severity:'CRITICAL'"
+```
+
+## Tuning
+
+- **Paranoia Level**: Controlled in `waf.yaml`. Higher levels enable more rules but increase false positives.
+- **Thresholds**: Adjust `inbound_threshold` (default 5) to control blocking sensitivity.
+- **False Positives**: Check logs for `rule_id` and add exceptions (future episode feature, currently requires modifying rule file or custom rule exclusion).
+
+## Performance
+
+The engine uses `regex` crate which is fast but not as fast as Hyperscan.
+Future optimization: Integrate `vectorscan` or `hyperscan`.
+Current target: <10ms per request.

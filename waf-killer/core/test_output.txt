@@ -1,0 +1,548 @@
+warning: unused import: `std::collections::HashMap`
+ --> core/src/config/policy_schema.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+  --> core/src/config/mod.rs:15:5
+   |
+15 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FeedType`
+  --> core/src/config/mod.rs:23:46
+   |
+23 | use crate::threat_intel::types::{ThreatFeed, FeedType};
+   |                                              ^^^^^^^^
+
+warning: unused import: `AnomalyPrediction`
+  --> core/src/proxy/mod.rs:29:47
+   |
+29 | ...MLInferenceEngine, AnomalyPrediction};
+   |                       ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Ordering`
+ --> core/src/state.rs:2:37
+  |
+2 | use std::sync::atomic::{AtomicBool, Ordering};
+  |                                     ^^^^^^^^
+
+warning: unused import: `arc_swap::ArcSwap`
+ --> core/src/api/config.rs:6:5
+  |
+6 | use arc_swap::ArcSwap;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::time::interval`
+ --> core/src/health.rs:6:5
+  |
+6 | use tokio::time::interval;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `debug`
+ --> core/src/health.rs:7:15
+  |
+7 | use tracing::{debug, info, warn};
+  |               ^^^^^
+
+warning: unused imports: `Counter` and `register_counter`
+  --> core/src/metrics.rs:10:11
+   |
+10 |     opts, register_counter, register_histogram, register_i...
+   |           ^^^^^^^^^^^^^^^^
+11 |     Counter, Histogram, IntCounter,
+   |     ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/telemetry.rs:5:5
+  |
+5 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Mutex`
+  --> core/src/telemetry.rs:11:5
+   |
+11 | use std::sync::Mutex;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `serde_json::json`
+  --> core/src/telemetry.rs:13:5
+   |
+13 | use serde_json::json;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `Duration as ChronoDuration`
+  --> core/src/admin_api.rs:33:19
+   |
+33 | use chrono::{Utc, Duration as ChronoDuration};
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AttackCategory`, `RequestLog`, and `ShadowReport`
+  --> core/src/admin_api.rs:40:33
+   |
+40 | ...e, RequestLog, ShadowReport, TrafficTimeSeries, AttackCategory};
+   |       ^^^^^^^^^^  ^^^^^^^^^^^^                     ^^^^^^^^^^^^^^
+
+warning: unused import: `FeatureVector`
+ --> core/src/rules/engine.rs:7:45
+  |
+7 | use crate::ml::features::{extract_features, FeatureVector};
+  |                                             ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> core/src/rules/engine.rs:13:5
+   |
+13 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/rules/loader.rs:2:14
+  |
+2 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> core/src/rules/operators.rs:2:5
+  |
+2 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused imports: `alpha1`, `alphanumeric1`, `many0`, `map_res`, `multispace0`, `recognize`, `separated_pair`, `take_while`, and `tuple`
+  --> core/src/rules/parser.rs:8:58
+   |
+ 8 | ...::complete::{escaped, is_not, tag, tag_no_case, take_while, take_whil...
+   |                                                    ^^^^^^^^^^
+ 9 | ...cter::complete::{alpha1, alphanumeric1, char, digit1, multispace0, mu...
+   |                     ^^^^^^  ^^^^^^^^^^^^^                ^^^^^^^^^^^
+10 | ...nator::{map, map_res, opt, recognize, value},
+   |                 ^^^^^^^       ^^^^^^^^^
+11 | ...::{many0, separated_list0, separated_list1},
+   |       ^^^^^
+12 | ...nce::{delimited, pair, preceded, separated_pair, terminated, tuple},
+   |                                     ^^^^^^^^^^^^^^              ^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/rules/variables.rs:2:5
+  |
+2 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ml/inference.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `Value`
+ --> core/src/ml/inference.rs:4:21
+  |
+4 |     value::{Tensor, Value},
+  |                     ^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/ml/inference.rs:8:5
+  |
+8 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TrafficStats` and `extract_features`
+  --> core/src/ml/inference.rs:10:27
+   |
+10 | use crate::ml::features::{extract_features, TrafficStats};
+   |                           ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `crate::parser::context::RequestContext`
+  --> core/src/ml/inference.rs:11:5
+   |
+11 | use crate::parser::context::RequestContext;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `ScalerError`
+  --> core/src/ml/inference.rs:12:41
+   |
+12 | use crate::ml::scaler::{ScalerMetadata, ScalerError};
+   |                                         ^^^^^^^^^^^
+
+warning: unused import: `Deserialize`
+ --> core/src/ml/feedback.rs:4:13
+  |
+4 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> core/src/wasm/mod.rs:4:5
+  |
+4 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `warn`
+ --> core/src/wasm/mod.rs:5:24
+  |
+5 | use log::{info, error, warn};
+  |                        ^^^^
+
+warning: unused import: `Config as NotifyConfig`
+ --> core/src/wasm/mod.rs:6:58
+  |
+6 | ...ommendedWatcher, Config as NotifyConfig};
+  |                     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/wasm/mod.rs:8:22
+  |
+8 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/wasm/runtime.rs:4:5
+  |
+4 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow`
+ --> core/src/ebpf/noop.rs:3:22
+  |
+3 | use anyhow::{Result, anyhow};
+  |                      ^^^^^^
+
+warning: unused import: `std::time::Duration as StdDuration`
+ --> core/src/threat_intel/client.rs:9:5
+  |
+9 | use std::time::Duration as StdDuration; // Keep std duratio...
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/threat_intel/types.rs:4:5
+  |
+4 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `header`
+ --> core/src/threat_intel/abuseipdb.rs:1:23
+  |
+1 | use reqwest::{Client, header};
+  |                       ^^^^^^
+
+warning: unused import: `Serialize`
+ --> core/src/threat_intel/abuseipdb.rs:2:26
+  |
+2 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: variant `FALSE_POSITIVE` should have an upper camel case name
+  --> core/src/vulnerabilities/mod.rs:26:5
+   |
+26 |     FALSE_POSITIVE,
+   |     ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `FalsePositive`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: unused import: `anyhow::anyhow`
+ --> core/src/api_protection/openapi/validator.rs:1:5
+  |
+1 | use anyhow::anyhow;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `FileSecurityChecks`
+ --> core/src/parser/body.rs:3:48
+  |
+3 | ...lidate_form_field, FileSecurityChecks,
+  |                       ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `info`
+  --> core/src/parser/body.rs:12:28
+   |
+12 | use tracing::{debug, warn, info};
+   |                            ^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/parser/context.rs:2:5
+  |
+2 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `InspectionMetadata`
+ --> core/src/parser/http.rs:2:63
+  |
+2 | ..., TransformedData, InspectionMetadata};
+  |                       ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/parser/http.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `AsyncCommands`
+ --> core/src/ratelimit/distributed.rs:2:13
+  |
+2 | use redis::{AsyncCommands, Script};
+  |             ^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ratelimit/distributed.rs:3:22
+  |
+3 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::thread`
+   --> core/src/botdetection/behavior.rs:165:9
+    |
+165 |     use std::thread;
+    |         ^^^^^^^^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/traffic_stats.rs:4:5
+  |
+4 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: use of deprecated method `redis::Client::get_tokio_connection_manager`: use get_connection_manager instead
+  --> core/src/ratelimit/distributed.rs:65:35
+   |
+65 | ...   match client.get_tokio_connection_manager().await {
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+warning: unused import: `futures::stream::TryStreamExt`
+  --> core/src/parser/body.rs:13:5
+   |
+13 | use futures::stream::TryStreamExt;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `e`
+   --> core/src/api/config.rs:185:16
+    |
+185 |     if let Err(e) = reload_waf_components(&state, &config...
+    |                ^ help: if this is intentional, prefix it with an underscore: `_e`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `line`
+  --> core/src/rules/loader.rs:26:18
+   |
+26 |              for line in content.lines() {
+   |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_line`
+
+warning: unused variable: `t`
+   --> core/src/rules/parser.rs:215:17
+    |
+215 |             let t = match val_str.as_str() {
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_t`
+
+warning: unused variable: `input`
+   --> core/src/rules/parser.rs:323:10
+    |
+323 |     let (input, actions) = parse_actions(input)
+    |          ^^^^^ help: if this is intentional, prefix it with an underscore: `_input`
+
+warning: unused variable: `max_complexity`
+   --> core/src/api_protection/graphql/mod.rs:235:47
+    |
+235 | ...y(query: &str, max_complexity: usize) -> Result<Comple...
+    |                   ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_max_complexity`
+
+warning: unused variable: `field_name`
+ --> core/src/parser/multipart_security.rs:7:5
+  |
+7 |     field_name: &str,
+  |     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_field_name`
+
+warning: unused variable: `ja3`
+   --> core/src/botdetection/fingerprint.rs:147:13
+    |
+147 |         let ja3 = calculate_ja3_hash(tls);
+    |             ^^^ help: if this is intentional, prefix it with an underscore: `_ja3`
+
+warning: unused variable: `token`
+   --> core/src/botdetection/challenge.rs:205:13
+    |
+205 |         let token = generate_challenge().unwrap();
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_token`
+
+warning: field `check_connectivity` is never read
+   --> core/src/api/config.rs:266:5
+    |
+264 | struct ValidateConfigRequest {
+    |        --------------------- field in this struct
+265 |     yaml: String,
+266 |     check_connectivity: bool,
+    |     ^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `health_check_url`, `check_interval`, and `check_timeout` are never read
+  --> core/src/health.rs:14:5
+   |
+10 | pub struct HealthMonitor {
+   |            ------------- fields in this struct
+...
+14 |     health_check_url: String,
+   |     ^^^^^^^^^^^^^^^^
+15 |     check_interval: Duration,
+   |     ^^^^^^^^^^^^^^
+16 |     check_timeout: Duration,
+   |     ^^^^^^^^^^^^^
+
+warning: struct `TimeSeriesData` is never constructed
+   --> core/src/admin_api.rs:116:8
+    |
+116 | struct TimeSeriesData {
+    |        ^^^^^^^^^^^^^^
+
+warning: field `watcher` is never read
+  --> core/src/wasm/mod.rs:20:5
+   |
+17 | pub struct WasmPluginManager {
+   |            ----------------- field in this struct
+...
+20 |     watcher: Option<RecommendedWatcher>,
+   |     ^^^^^^^
+
+warning: field `interface` is never read
+  --> core/src/ebpf/noop.rs:13:5
+   |
+12 | pub struct EBPFManager {
+   |            ----------- field in this struct
+13 |     interface: String,
+   |     ^^^^^^^^^
+
+warning: multiple fields are never read
+  --> core/src/threat_intel/abuseipdb.rs:23:5
+   |
+22 | struct AbuseIPDBData {
+   |        ------------- fields in this struct
+23 |     ip_address: String,
+   |     ^^^^^^^^^^
+24 |     is_public: bool,
+   |     ^^^^^^^^^
+25 |     ip_version: u8,
+   |     ^^^^^^^^^^
+26 |     is_whitelisted: bool,
+   |     ^^^^^^^^^^^^^^
+27 |     abuse_confidence_score: u8,
+28 |     country_code: Option<String>,
+   |     ^^^^^^^^^^^^
+29 |     usage_type: Option<String>,
+30 |     isp: Option<String>,
+   |     ^^^
+31 |     domain: Option<String>,
+   |     ^^^^^^
+32 |     hostnames: Vec<String>,
+   |     ^^^^^^^^^
+33 |     is_tor: bool,
+34 |     total_reports: u32,
+   |     ^^^^^^^^^^^^^
+35 |     num_distinct_users: u32,
+   |     ^^^^^^^^^^^^^^^^^^
+36 |     last_reported_at: Option<String>,
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: `AbuseIPDBData` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `meta` is never read
+  --> core/src/threat_intel/abuseipdb.rs:41:5
+   |
+40 | struct AbuseIPDBBlacklistResponse {
+   |        -------------------------- field in this struct
+41 |     meta: BlacklistMeta,
+   |     ^^^^
+   |
+   = note: `AbuseIPDBBlacklistResponse` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `generated_at` is never read
+  --> core/src/threat_intel/abuseipdb.rs:48:5
+   |
+47 | struct BlacklistMeta {
+   |        ------------- field in this struct
+48 |     generated_at: String,
+   |     ^^^^^^^^^^^^
+   |
+   = note: `BlacklistMeta` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `waf-killer-core` (lib test) generated 66 warnings (run `cargo fix --lib -p waf-killer-core --tests` to apply 55 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.34s
+warning: the following packages contain code that will be rejected by a future version of Rust: redis v0.25.4
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+     Running unittests src/lib.rs (/Users/ghostshinobi/Desktop/shibuya/waf-killer/target/debug/deps/waf_killer_core-293bce4a2c9df7e0)
+
+running 35 tests
+test api_protection::graphql::tests::test_nested_query_depth ... ok
+test api_protection::graphql::tests::test_depth_limit_enforcement ... ok
+test api_protection::graphql::tests::test_simple_query_depth ... ok
+test api_protection::graphql::tests::test_query_with_comments ... ok
+test api_protection::graphql::tests::test_complexity_validation ... ok
+test api_protection::graphql::tests::test_simple_complexity ... ok
+test api_protection::graphql::tests::test_high_complexity_lists ... ok
+test api_protection::tests::test_graphql_deep_query_attack ... ok
+test api_protection::tests::test_graphql_mutation ... ok
+test api_protection::tests::test_graphql_custom_threshold ... ok
+test api_protection::tests::test_graphql_simple_query ... ok
+test api_protection::tests::test_graphql_with_strings ... ok
+test api_protection::tests::test_json_empty ... ok
+test api_protection::graphql::tests::test_invalid_query ... ok
+test api_protection::tests::test_json_too_deep ... ok
+test api_protection::tests::test_json_malformed ... ok
+test api_protection::tests::test_json_valid_shallow ... FAILED
+test api_protection::tests::test_json_nested_within_limit ... FAILED
+test api_protection::tests::test_json_duplicate_keys ... FAILED
+test api_protection::openapi::tests::test_load_openapi_spec ... ok
+test api_protection::tests::test_json_array_depth ... FAILED
+test botdetection::behavior::tests::test_velocity_scoring ... ok
+test botdetection::behavior::tests::test_verification_reduces_score ... ok
+test api_protection::openapi::validator::tests::test_validate_request_body ... ok
+test config::tests::test_default_config ... ok
+test config::tests::test_config_validation ... ok
+test ml::scaler::tests::test_invalid_feature_count ... ok
+test ml::scaler::tests::test_scaler_loading ... ok
+test botdetection::challenge::tests::test_challenge_verification ... ok
+test botdetection::challenge::tests::test_challenge_generation ... ok
+test api_protection::openapi::validator::tests::test_validate_path_params ... ok
+test rules::seed::tests::test_owasp_rules_generation ... ok
+test api_protection::openapi::validator::tests::test_validate_query_params ... ok
+test botdetection::fingerprint::tests::test_bot_user_agents ... ok
+test botdetection::fingerprint::tests::test_browser_user_agents ... ok
+
+failures:
+
+---- api_protection::tests::test_json_valid_shallow stdout ----
+
+thread 'api_protection::tests::test_json_valid_shallow' (577277) panicked at core/src/api_protection/mod.rs:373:9:
+assertion `left == right` failed
+  left: 2
+ right: 1
+
+---- api_protection::tests::test_json_nested_within_limit stdout ----
+
+thread 'api_protection::tests::test_json_nested_within_limit' (577275) panicked at core/src/api_protection/mod.rs:382:9:
+assertion `left == right` failed
+  left: 5
+ right: 4
+
+---- api_protection::tests::test_json_duplicate_keys stdout ----
+
+thread 'api_protection::tests::test_json_duplicate_keys' (577272) panicked at core/src/api_protection/mod.rs:399:67:
+called `Result::unwrap()` on an `Err` value: JSON parse error during duplicate check: trailing characters at line 1 column 25
+
+---- api_protection::tests::test_json_array_depth stdout ----
+
+thread 'api_protection::tests::test_json_array_depth' (577271) panicked at core/src/api_protection/mod.rs:409:9:
+assertion `left == right` failed
+  left: 5
+ right: 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    api_protection::tests::test_json_array_depth
+    api_protection::tests::test_json_duplicate_keys
+    api_protection::tests::test_json_nested_within_limit
+    api_protection::tests::test_json_valid_shallow
+
+test result: FAILED. 31 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `--lib`

@@ -1,0 +1,32 @@
+
+server:
+  listen:
+    host: "127.0.0.1"
+    port: 9443
+  tls:
+    enabled: false
+    cert_path: ""
+    key_path: ""
+  shutdown_timeout: 1s
+
+upstream:
+  host: "127.0.0.1"
+  port: 51662
+  scheme: "http"
+  pool:
+    min_connections: 1
+    max_connections: 10
+    idle_timeout: 10s
+    connection_timeout: 1s
+  health_check:
+    enabled: true
+    path: "/health"
+    interval: 1s
+    timeout: 1s
+    unhealthy_threshold: 1
+
+telemetry:
+  log_level: "error"
+  log_format: "json"
+  metrics_enabled: true
+  metrics_port: 9091

@@ -1,0 +1,48 @@
+# Episode 4: ML Anomaly Detection - Layer 1 (The Prophet)
+
+## Architecture
+This episode adds a Machine Learning layer to the WAF to detect zero-day attacks and anomalies that signature-based rules (CRS) miss.
+
+The architecture consists of:
+1. **Feature Extractor**: Extracts 28 features from every request in <1ms.
+2. **Analysis Engine**: Uses ONNX Runtime to run an Isolation Forest model.
+3. **Explainer**: Calculates feature contributions to explain WHY a request is anomalous.
+4. **Integrator**: Combines ML scores with CRS scores in the Rule Engine.
+
+## Feature Engineering (28 Features)
+We extract signals across 4 categories:
+1. **Metadata**: URL length, path depth, param count, HTTP method.
+2. **Payload**: Entropy, special char ratios, suspicious keywords (SQLi/XSS), encoding depth.
+3. **Behavioral**: Request rates (1min/5min), error rates, unique paths.
+4. **Protocol**: HTTP version, TLS usage, headers.
+
+## Training Guide
+1. Collect normal traffic (logs or mirror).
+2. Generate dataset:
+   `python ml/training/generate_dataset.py > ml/datasets/normal_traffic.jsonl`
+   `python ml/training/generate_dataset.py attacks > ml/datasets/attack_traffic.jsonl`
+3. Train model:
+   `python ml/training/train.py`
+   This outputs `ml/models/anomaly_v1.onnx` and `metadata.json`.
+
+## Configuration
+Enable ML in `config/waf.yaml`:
+```yaml
+ml:
+  enabled: true
+  anomaly_detection:
+    threshold: 0.7
+```
+
+## Explainability
+When a request is flagged (score > 0.5), the WAF calculates z-scores for each feature against the baseline.
+Example Log:
+`"summary": "High entropy (7.8), unusual param count (47), rare user-agent"`
+
+## Performance
+- Feature extraction: ~20µs
+- Inference: ~50µs (ONNX Runtime)
+- Total overhead: <0.1ms per request
+
+## Future
+Episode 5 will add a Classification Layer to classify the *type* of attack (SQLi vs XSS) using Supervised Learning.

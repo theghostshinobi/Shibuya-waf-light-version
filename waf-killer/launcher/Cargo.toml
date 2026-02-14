@@ -1,0 +1,30 @@
+[package]
+name = "waf-killer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+waf-killer-core = { path = "../core" }
+waf-killer-api = { path = "../api" }
+
+pingora = { git = "https://github.com/cloudflare/pingora", features = ["lb"] }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+arc-swap = "1.7"
+sqlx = { version = "0.8.6", features = ["postgres", "runtime-tokio-rustls", "chrono", "uuid"] }
+redis = { version = "0.27", features = ["tokio-comp"] }
+regex = "1.10"
+uuid = { version = "1.11", features = ["v4"] }
+chrono = "0.4"
+futures = "0.3"
+async-graphql-parser = "7.0"
+
+# Auth deps - commented out for macOS build (require native xmlsec1)
+# samael = "0.0.19"
+# openidconnect = "3.5"
+# totp-lite = "2.0"
+# webauthn-rs = { version = "0.5", features = ["danger-allow-state-serialisation"] }
+

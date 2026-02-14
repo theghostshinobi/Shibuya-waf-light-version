@@ -1,0 +1,40 @@
+app = "waf-killer"
+primary_region = "iad"
+
+[build]
+  image = "ghcr.io/waf-killer/waf-killer:latest"
+
+[[services]]
+  http_checks = []
+  internal_port = 8443
+  protocol = "tcp"
+  
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+  
+  [[services.tcp_checks]]
+    grace_period = "30s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+
+[env]
+  RUST_LOG = "info"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 2
+  memory_mb = 2048
+
+# Deploy to 100+ regions globally
+[regions]
+  iad = true   # Washington DC
+  lax = true   # Los Angeles
+  lhr = true   # London
+  fra = true   # Frankfurt
+  syd = true   # Sydney
+  nrt = true   # Tokyo
+  sin = true   # Singapore
+  gru = true   # São Paulo
+  # ... 90+ more regions

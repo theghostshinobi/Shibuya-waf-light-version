@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "waf-killer.fullname" . }}
+  labels:
+    {{- include "waf-killer.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    # Default configuration
+    server:
+      host: "0.0.0.0"
+      port: 8443
+    
+    logging:
+      level: "info"

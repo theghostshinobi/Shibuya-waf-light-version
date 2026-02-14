@@ -1,0 +1,9 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: waf-killer
+spec:
+  minAvailable: 2 # Always keep at least 2 pods running
+  selector:
+    matchLabels:
+      app: waf-killer

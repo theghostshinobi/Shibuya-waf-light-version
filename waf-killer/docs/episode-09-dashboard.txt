@@ -1,0 +1,30 @@
+# WAF KILLER - EPISODE 9: WEB DASHBOARD (THE WAR ROOM)
+
+## Overview
+Episode 9 introduces a high-performance, visually stunning web dashboard built with SvelteKit and Tailwind CSS. This dashboard provides security teams with real-time visibility into their traffic, attack patterns, and WAF performance.
+
+## Key Features
+- **Real-time Attack Visualization**: Live-streaming request logs via WebSockets.
+- **Deep Incident Investigation**: Detailed request analysis including CRS matches, ML scores, and raw HTTP payloads.
+- **Interactive Rules Management**: Enable or disable WAF rules with a single click.
+- **Advanced Analytics**: Traffic trends, attack type distributions, and IP-based heatmaps.
+- **ML Feedback Loop**: Interface for security analysts to mark false positives and confirm attacks, improving the ML model's accuracy.
+
+## Technical Architecture
+- **Frontend**: SvelteKit for fast, reactive UI.
+- **Styling**: Tailwind CSS + shadcn/ui for a premium, accessible design.
+- **Charts**: Apache ECharts for interactive data visualization.
+- **Backend API**: Rust/Axum-based HTTP and WebSocket server integrated into the WAF core.
+- **Data Persistence**: PostgreSQL for historical traffic and analytics data.
+
+## Deployment
+The dashboard is containerized and integrated into the `docker-compose.yml` environment.
+
+- **API Port**: 9091 (HTTP/WS)
+- **Dashboard Port**: 3000 (HTTP)
+
+## Success Metrics
+- ✅ Initial load < 2s
+- ✅ Real-time update latency < 500ms
+- ✅ 100% Mobile Responsive
+- ✅ Dark Mode Support

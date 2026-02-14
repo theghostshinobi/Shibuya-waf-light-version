@@ -1,0 +1,179 @@
+[package]
+name = "waf-killer-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Core async runtime
+tokio = { version = "1.37", features = ["full", "tracing"] }
+# Pingora (The Core Proxy)
+pingora = { git = "https://github.com/cloudflare/pingora", features = ["proxy", "lb", "openssl"] }
+
+# Hyper/Tower (kept for Management API if needed, or internal use)
+hyper = { version = "1.2", features = ["full"] }
+hyper-util = { version = "0.1", features = ["full"] }
+tower = { version = "0.4", features = ["full"] }
+tower-http = { version = "0.5", features = ["full"] }
+axum = { version = "0.7", features = ["multipart"] }
+axum-extra = { version = "0.9", features = ["multipart"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+
+# Pattern matching
+regex = "1.10"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Configuration
+config = "0.14"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Async traits
+async-trait = "0.1"
+
+# Utilities
+rand = "0.8"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.8", features = ["v4", "serde"] }
+bytes = "1.6"
+tempfile = "3.10"
+futures = "0.3"
+lazy_static = "1.4"
+urlencoding = "2.1"
+base64 = "0.22"
+percent-encoding = "2.3"
+
+# Metrics
+prometheus = { version = "0.13", features = ["process"] }
+
+# CLI Parser
+clap = { version = "4.4", features = ["derive"] }
+
+# ML - SmartCore
+smartcore = { version = "0.3.2", features = ["serde"] }
+bincode = "1.3"
+
+# Git operations
+git2 = { version = "0.18", default-features = false, features = ["ssh", "https", "openssl-sys"] }
+
+# SQLi/XSS Detection (pure Rust port of libinjection)
+libinjectionrs = "0.1.1"
+
+# Fast hashing
+ahash = "0.8"
+crossbeam = "0.8"
+lru = "0.12"
+mimalloc = "0.1"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "sqlite", "uuid", "chrono", "json"] }
+
+# ML/ONNX Runtime
+ort = { version = "2.0.0-rc.9", features = ["copy-dylibs"] }
+ndarray = "0.16"
+
+# Other deps preserved
+walkdir = "2.4"
+parking_lot = "0.12"
+dashmap = "5.5"
+xxhash-rust = { version = "0.8", features = ["xxh3"] }
+notify = "6.1"
+jsonschema = "0.17"
+arc-swap = "1.7"
+humantime-serde = "1.1"
+core_affinity = "0.8"
+nom = "7.1"
+unicode-normalization = "0.1"
+# Redis cache
+redis = { version = "0.25", features = ["tokio-comp", "connection-manager"] }
+
+# GraphQL parsing
+# async-graphql-parser = "7.0"
+
+# OpenAPI
+# utoipa = "4.2"
+
+# Multipart forms
+multer = "3.0"
+infer = "0.15"
+
+# WASM Plugin System
+wasmtime = "14.0"
+wasmtime-wasi = "14.0"
+cap-std = "2.0"
+# wit-bindgen = "0.21" 
+
+# Serialization for WASM boundary
+rmp-serde = "1.1" # Efficient binary serialization
+
+# SAML authentication (requires xmlsec1 native library)
+# samael = { version = "0.0.15", features = ["xmlsec"] }
+
+# Cryptographic utilities
+hex = "0.4"
+sha2 = "0.10"
+sha1 = "0.10"
+md-5 = "0.10"
+
+# JWT for bot challenges
+jsonwebtoken = "9.3"
+
+# QR Code generation
+# qrcode = "0.14"
+# svg = "0.17"
+
+# HTML escaping
+html-escape = "0.2"
+
+# TOTP authentication
+# totp-lite = "2.0"
+
+# WebAuthn/passkeys
+# webauthn-rs = { version = "0.5", features = ["danger-allow-state-serialisation"] }
+
+# OpenID Connect
+# openidconnect = "4.0"
+
+# Stripe billing integration
+async-stripe = { version = "0.39", default-features = false, features = ["runtime-tokio-hyper", "full"] }
+
+# URL utilities
+serde_urlencoded = "0.7"
+base32 = "0.5"
+url = "2.5"
+mime = "0.3"
+# maxminddb = "0.27.1"
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+
+[build-dependencies]
+tonic-build = "0.11"
+
+[dev-dependencies]
+tokio-test = "0.4"
+mockall = "0.12"
+criterion = { version = "0.5", features = ["async_tokio"] }
+wiremock = "0.6"
+
+[[bench]]
+name = "rule_matching"
+harness = false
+
+[[bench]]
+name = "shibuya_bench"
+harness = false
+path = "../benchmarks/rust_microbench.rs"
+
+[features]
+default = []
+simd = []
+

@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  shibuya-waf:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8443:8443"
+      - "9090:9090"
+    environment:
+      - RUST_LOG=info
+      - CONFIG_PATH=/etc/shibuya/config/waf.yaml
+    secrets:
+      - abuseipdb_key
+      - alienvault_key
+      - db_password
+    volumes:
+      - waf-logs:/var/log/shibuya
+      - waf-data:/var/lib/shibuya
+    networks:
+      - waf-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 2G
+        reservations:
+          cpus: '2'
+          memory: 1G
+  
+  redis:
+    image: redis:7-alpine
+    networks:
+      - waf-net
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+  
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - waf-net
+    ports:
+      - "9091:9090"
+
+secrets:
+  abuseipdb_key:
+    file: ./secrets/abuseipdb.key
+  alienvault_key:
+    file: ./secrets/alienvault.key
+  db_password:
+    file: ./secrets/db_password.txt
+
+volumes:
+  waf-logs:
+  waf-data:
+  redis-data:
+  prometheus-data:
+
+networks:
+  waf-net:
+    driver: bridge

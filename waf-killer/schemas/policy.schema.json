@@ -1,0 +1,235 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WAF Policy",
+  "type": "object",
+  "required": [
+    "version",
+    "metadata",
+    "global"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "name",
+        "environment"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "development",
+            "staging",
+            "production"
+          ]
+        },
+        "owner": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "global": {
+      "type": "object",
+      "required": [
+        "mode",
+        "paranoia_level"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "blocking",
+            "detection",
+            "off"
+          ]
+        },
+        "paranoia_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "anomaly_threshold": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "default_action": {
+          "type": "string",
+          "enum": [
+            "allow",
+            "block"
+          ]
+        },
+        "rate_limit": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "requests_per_minute": {
+              "type": "integer"
+            },
+            "burst": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "ip_lists": {
+      "type": "object",
+      "properties": {
+        "whitelist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blacklist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "geo": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "whitelist",
+            "blacklist",
+            "off"
+          ]
+        },
+        "allowed_countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          }
+        },
+        "blocked_countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          }
+        }
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "policy"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "policy": {
+            "type": "object",
+            "properties": {
+              "anomaly_threshold": {
+                "type": "integer"
+              },
+              "require_auth": {
+                "type": "boolean"
+              },
+              "custom_rules": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/custom_rule"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "custom_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/custom_rule"
+      }
+    }
+  },
+  "definitions": {
+    "custom_rule": {
+      "type": "object",
+      "required": [
+        "id",
+        "condition",
+        "action"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "phase": {
+          "type": "integer"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "allow",
+            "block",
+            "deny",
+            "drop",
+            "challenge"
+          ]
+        },
+        "score": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# EPISODE 7: CLI TOOL - THE GOD'S INTERFACE
+
+## Summary
+The "God's Interface" CLI tool brings configured WAF management to the terminal, providing a modern, consistent, and beautiful developer experience.
+
+## Key Features
+- **Interactive Setup**: `waf init` walks users through configuration with validation.
+- **Real-time Logs**: `waf logs --follow` streams logs via gRPC with color coding.
+- **Statistics**: `waf stats --watch` provides a TUI dashboard of live traffic.
+- **Testing**: `waf test` allows testing payloads against the active rule engine without deploying.
+- **Management**: `waf rules` enables/disables rules on the fly.
+
+## Architecture
+- **Protocol**: gRPC (tonic/prost) over TCP.
+- **Client**: Rust `clap` based CLI.
+- **Server**: Core exposes `WafManagement` service running as a background service in Pingora.
+
+## Setup
+1. Build both core and cli: `cargo build --workspace`
+2. Run core: `cargo run -p waf-killer-core`
+3. Run CLI: `cargo run -p waf-killer-cli -- init`
+
+## Commands
+- `waf init`: Setup wizard.
+- `waf start`: Start daemon.
+- `waf logs`: View logs.
+- `waf stats`: View dashboard.
+- `waf test "payload"`: Test attack vector.
+
+## Next Steps
+- Implement policy as code (gitops).
+- Add web dashboard.

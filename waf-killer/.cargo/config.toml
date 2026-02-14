@@ -1,0 +1,18 @@
+[build]
+rustflags = [
+    "-C", "target-cpu=native",        # Use all CPU features
+]
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"                       # Smaller binary, faster
+strip = true                          # Remove debug symbols
+debug = false
+rpath = false
+

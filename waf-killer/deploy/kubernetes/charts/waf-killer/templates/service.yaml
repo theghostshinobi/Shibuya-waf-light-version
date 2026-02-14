@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "waf-killer.fullname" . }}
+  labels:
+    {{- include "waf-killer.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: https
+    - port: 9091
+      targetPort: 9091
+      protocol: TCP
+      name: http-api
+  selector:
+    {{- include "waf-killer.selectorLabels" . | nindent 4 }}

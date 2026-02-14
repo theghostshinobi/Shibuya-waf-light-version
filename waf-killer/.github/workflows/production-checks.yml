@@ -1,0 +1,58 @@
+name: Production Readiness Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/audit-check@v1
+
+  build-optimized:
+    name: Optimized Build Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Build release
+        run: cargo build --release
+      - name: Check binary size
+        run: |
+          SIZE=$(stat -c%s target/release/shibuya-waf)
+          if [ $SIZE -gt 20000000 ]; then
+            echo "Binary too large: ${SIZE} bytes (max 20MB)"
+            exit 1
+          fi
+
+  docker-security-scan:
+    name: Docker Image Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -f docker/Dockerfile -t shibuya-waf:test .
+      - name: Scan with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "shibuya-waf:test"
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL,HIGH"
+
+  chaos-test:
+    name: Chaos Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start services
+        run: docker-compose -f docker/docker-compose.yml up -d
+      - name: Run chaos tests
+        run: ./scripts/chaos_test.sh

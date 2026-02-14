@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  vulnerable-app:
+    build: 
+      context: ./vulnerable_app
+    networks:
+      - redteam-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  shibuya-waf:
+    build:
+      context: ../waf-killer
+      dockerfile: docker/Dockerfile
+    ports:
+      - "9090:8080"  # Map host 9090 to WAF traffic port 8080
+      - "9091:9090"  # Map host 9091 to WAF metrics port 9090
+    environment:
+      - RUST_LOG=info
+      - CONFIG_PATH=/etc/shibuya/config/waf.yaml
+    volumes:
+      - ./waf-redteam.yaml:/etc/shibuya/config/waf.yaml # Overlay config
+    secrets:
+      - abuseipdb_key
+      - alienvault_key
+      - db_password
+    networks:
+      - redteam-net
+    depends_on:
+      vulnerable-app:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+
+secrets:
+  abuseipdb_key:
+    file: ../waf-killer/docker/secrets/abuseipdb.key
+  alienvault_key:
+    file: ../waf-killer/docker/secrets/alienvault.key
+  db_password:
+    file: ../waf-killer/docker/secrets/db_password.txt
+
+networks:
+  redteam-net:

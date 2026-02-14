@@ -1,0 +1,8 @@
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+torch>=2.0
+onnx>=1.14
+skl2onnx>=1.15
+onnxmltools>=1.11
+onnxscript>=0.1

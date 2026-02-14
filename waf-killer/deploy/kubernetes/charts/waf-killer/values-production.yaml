@@ -1,0 +1,41 @@
+# Production overrides
+replicaCount: 10
+
+autoscaling:
+  minReplicas: 10
+  maxReplicas: 500
+
+resources:
+  requests:
+    cpu: 2000m
+    memory: 2Gi
+  limits:
+    cpu: 4000m
+    memory: 4Gi
+
+postgresql:
+  enabled: false # Use managed RDS/Cloud SQL
+  externalDatabase:
+    host: prod-db.example.com
+    port: 5432
+    database: waf_killer
+    user: waf_killer
+    existingSecret: waf-killer-db-secret
+
+redis:
+  enabled: false # Use managed ElastiCache/Memorystore
+  externalRedis:
+    host: prod-redis.example.com
+    port: 6379
+    existingSecret: waf-killer-redis-secret
+
+# High availability
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 5
+
+# Multi-AZ deployment
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: DoNotSchedule

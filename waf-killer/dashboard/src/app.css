@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  /* WAF Killer Dark Theme Defaults */
+  --background: #0f172a;
+  /* Slate 900 */
+  --foreground: #f1f5f9;
+  /* Slate 50 */
+  --surface: #1e293b;
+  /* Slate 800 */
+
+  --primary: #06b6d4;
+  /* Cyan 500 */
+  --secondary: #3b82f6;
+  /* Blue 500 */
+  --accent: #8b5cf6;
+  /* Violet 500 */
+  --destructive: #ef4444;
+  /* Red 500 */
+
+  --muted: #334155;
+  /* Slate 700 */
+  --muted-foreground: #94a3b8;
+  /* Slate 400 */
+
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #06b6d4;
+
+  --radius: 0.75rem;
+
+  /* Theme variables mapped for Tailwind usage if needed via utility classes */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* Base styles without @apply complexity */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Simple utility class for glass effect if needed */
+.glass {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}

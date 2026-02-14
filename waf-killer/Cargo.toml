@@ -1,0 +1,27 @@
+[workspace]
+members = ["core", "cli", "api", "launcher"]
+resolver = "2"
+
+[profile.release]
+# Link-Time Optimization (fat = full program optimization)
+lto = "fat"
+
+# Single codegen unit for better optimization (slower compile, faster runtime)
+codegen-units = 1
+
+# Abort on panic instead of unwinding (smaller binary, faster)
+panic = "abort"
+
+# Maximum optimization level
+opt-level = 3
+
+# Strip symbols (smaller binary)
+strip = true
+
+# Additional optimizations
+incremental = false
+overflow-checks = false
+
+[profile.release.package."*"]
+# Optimize all dependencies aggressively
+opt-level = 3

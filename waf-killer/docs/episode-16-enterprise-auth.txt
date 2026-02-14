@@ -1,0 +1,49 @@
+WAF KILLER - EPISODE 16: ENTERPRISE AUTH
+=======================================
+
+STATUS: OPERATIONAL
+COMPONENTS: SAML 2.0, OAuth 2.0/OIDC, MFA (TOTP/WebAuthn), Centralized Sessions, Zero Trust Policies.
+
+Overview
+--------
+Episode 16 adds the critical layer for enterprise sales: identity integration and security.
+Now the WAF doesn't just block bad requests, it ensures only the right people can manage the defense.
+
+Key Features
+------------
+1. SAML 2.0 Integration:
+   - Service Provider (SP) metadata generation.
+   - AuthnRequest signing and SAML Response verification.
+   - JIT (Just-in-Time) provisioning for seamless onboarding.
+
+2. OAuth 2.0 / OpenID Connect:
+   - Google, GitHub, and Microsoft support.
+   - PKCE (Proof Key for Code Exchange) for enhanced security.
+   - Managed state via Redis.
+
+3. Multi-Factor Authentication (MFA):
+   - TOTP support for Google Authenticator.
+   - WebAuthn/FIDO2 support for hardware keys (YubiKey).
+   - Enforcement policies for admin roles.
+
+4. Centralized Session Management:
+   - Redis-backed session store for distributed deployments.
+   - Idle and absolute timeouts.
+   - Concurrent session limits (e.g., max 3 active sessions).
+   - Hijacking detection (IP + Browser fingerprinting).
+
+5. Zero Trust Conditional Access:
+   - Risk-based authentication scoring.
+   - IP-based access constraints.
+   - Compliance re-verification.
+
+Implementation Details
+----------------------
+- Core logic: `core/src/auth/`, `core/src/mfa/`, `core/src/session/`, `core/src/policies/`
+- API Endpoints: `/api/auth/login`, `/api/auth/sso/*`, `/api/auth/mfa/*`
+- Schema: Migrations 008, 009, 010.
+
+Next Steps
+----------
+Episode 17 will focus on Compliance (SOC2/PCI-DSS/GDPR) using the audit trails established here.
+Episode 18 will finalize the suite with Threat Hunting + Incident Response.

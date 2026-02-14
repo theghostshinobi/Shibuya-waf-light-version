@@ -1,0 +1,57 @@
+# WAF Killer - Episode 12: Scanner Integration + Virtual Patching
+
+## Overview
+Episode 12 brings "The Self-Healing Shield" capabilities to WAF Killer. It bridges the gap between offensive security tools (scanners) and defensive measures (WAF rules), automating the protection process.
+
+## Key Features
+
+### 1. Scanner Integration
+- **Burp Suite**: Import findings directly from Burp scans.
+- **OWASP ZAP**: Integrate with ZAP for active scanning.
+- **Nuclei**: Run fast, template-based scans for specific CVEs.
+- **SARIF Support**: Import results from any tool that outputs SARIF (GitHub Advanced Security, etc.).
+- **Endpoint Discovery**: Automatically map your attack surface by aggregating paths found by all scanners.
+
+### 2. Virtual Patching
+- **CVE -> Rule**: Instantly generate WAF rules from a CVE ID.
+- **Finding -> Rule**: Turn a scanner finding into a blocking rule in seconds.
+- **Automated Verification**: The system verifies that a generated patch actually blocks the attack AND doesn't block legitimate traffic before activating it.
+- **Lifecycle Management**: Patches can be auto-expired when the underlying code is fixed.
+
+## Architecture
+
+### Core Modules
+- `core/src/scanner/`: Handles communication with external scanners.
+- `core/src/virtual_patch/`: Logic for generating and verifying rules.
+    - `cve.rs`: Fetches data from CVE databases (NVD/CIRCL).
+    - `generator.rs`: Uses heuristics and patterns to create Regex rules.
+    - `verifier.rs`: Replays attacks against the WAF to confirm protection.
+
+### CLI Commands
+- `waf scan import --scanner <type> --file <path> --auto-patch`: Import findings and auto-protect.
+- `waf patch cve <cve-id> --verify`: Create protection for a specific CVE.
+- `waf patch list`: Manage active virtual patches.
+
+### Dashboard
+- **/vulnerabilities**: View all discovered vulnerabilities and their patch status.
+- **/patches**: Manage, toggle, and verify virtual patches.
+
+## Usage Examples
+
+### Scenario 1: Emergency CVE Patching
+When a new critical CVE drops (e.g., Log4Shell style), you don't need to wait for a code deploy.
+```bash
+waf patch cve CVE-2024-1234 --verify
+```
+This generates a rule, tests it against a PoC, and activates it. Time to mitigate: < 1 minute.
+
+### Scenario 2: Automated Pen-Test Fixes
+After a pentest or automated scan:
+```bash
+waf scan import --scanner burp --file scan_results.xml --auto-patch
+```
+The WAF parses the results, extracts attack payloads/paths, and creates specific block rules for those vulnerabilities.
+
+## Completion Status
+Core MVP (Episodes 1-12) is now COMPLETE. The WAF is active, managed, and self-healing.
+Next Phase: ENTERPRISE & SCALE.

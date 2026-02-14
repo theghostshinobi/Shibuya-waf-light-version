@@ -1,0 +1,40 @@
+# WAF KILLER - EPISODE 10: THREAT INTELLIGENCE & IP REPUTATION (THE GLOBAL WATCH)
+
+## Overview
+Episode 10 elevates WAF Killer from a local protector to a globally-aware security sentinel. By integrating real-time threat intelligence feeds and maintaining a dynamic IP reputation database, the WAF can proactively block known bad actors before they even attempt their first exploit.
+
+## Key Features
+1. **Dynamic IP Reputation**: Real-time lookup against millions of known malicious IPs (botnets, tor exit nodes, compromised servers).
+2. **Multi-Source Intelligence**: Integration with providers like Cloudflare, AlienVault, CrowdSec, and custom enterprise feeds.
+3. **Advanced LruCache Layer**: High-performance local caching of reputation scores to ensure zero-latency impact on legit traffic.
+4. **Confidence-Based Blocking**: Instead of binary Allow/Block, the WAF uses confidence scores and severity levels to apply different actions (e.g., CAPTCHA for medium risk, Block for high risk).
+5. **Auto-Nuke**: Automatically adds recurring attackers from local logs to the global reputation pool.
+
+## Technical Architecture
+- **Threat Intel Service**: A gRPC-based microservice that aggregates and normalizes feeds from multiple vendors.
+- **Core Integration (`core/src/threat_intel`)**:
+    - `client.rs`: Handles gRPC communication with the intelligence service.
+    - `cache`: An `LruCache` that stores `Option<IPReputation>` to minimize redundant network calls.
+- **Proto Definition**: Standardized protobuf schema for cross-service reputation exchange.
+
+## Configuration
+```yaml
+threat_intel:
+  enabled: true
+  endpoint: "grpc://threat-intel.internal:50051"
+  cache_size: 100000
+  thresholds:
+    block_severity: 8
+    challenge_severity: 5
+  feeds:
+    - name: "honeypot_net"
+      weight: 1.2
+    - name: "tor_exit_nodes"
+      weight: 1.0
+```
+
+## Success Metrics
+- ✅ Threat lookup latency < 1ms (Cached)
+- ✅ Threat lookup latency < 50ms (Uncached)
+- ✅ Memory footprint < 128MB for 100k IP cache
+- ✅ False Positive Rate < 0.01%

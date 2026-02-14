@@ -1,0 +1,4 @@
+target/
+.git/
+dashboard/node_modules/
+.DS_Store

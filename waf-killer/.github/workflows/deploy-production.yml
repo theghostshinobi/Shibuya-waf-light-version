@@ -1,0 +1,42 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: |
+            ghcr.io/waf-killer/waf-killer:${{ steps.version.outputs.VERSION }}
+            ghcr.io/waf-killer/waf-killer:latest
+
+      - name: Deploy to Kubernetes
+        uses: azure/k8s-deploy@v4
+        with:
+          manifests: |
+            deploy/kubernetes/charts/waf-killer
+          images: |
+            ghcr.io/waf-killer/waf-killer:${{ steps.version.outputs.VERSION }}
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "✅ WAF Killer ${{ steps.version.outputs.VERSION }} deployed to production"
+            }

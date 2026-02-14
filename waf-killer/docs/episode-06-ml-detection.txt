@@ -1,0 +1,51 @@
+# WAFKILLER - EPISODE 6: ML-POWERED ANOMALY DETECTION
+
+## Overview
+Episode 6 adds intelligence to the WAF by integrating Machine Learning models to detect zero-day attacks and anomalies that static rules might miss.
+
+## Features Implemented
+
+### 1. Feature Extraction (`core/src/ml/features.rs`)
+Extracts 50 numerical features from every HTTP request, including:
+- **Request Metadata**: URI length, body size, path depth, header count.
+- **Payload Characteristics**: Entropy (randomness) of URI and Body to detect encryption/obfuscation.
+- **Character Distribution**: Ratios of special characters, digits, uppercase letters.
+- **Security Indicators**: Counts of SQL extraction keywords (UNION, SELECT) and XSS patterns (<script).
+- **Protocol Features**: Method and Content-Type encoding.
+
+### 2. ONNX Inference Engine (`core/src/ml/inference.rs`)
+Integrates `ort` (ONNX Runtime) to run ML models directly within the Rust proxy with <1ms overhead.
+- **Anomaly Detection**: Uses an Isolation Forest model to score requests from 0.0 (normal) to 1.0 (highly anomalous).
+- **Attack Classification**: Uses a Neural Network to classify high-confidence attacks into types (SQLi, XSS, RCE, etc.).
+
+### 3. Combined Scoring (`core/src/ml/scoring.rs`)
+A weighted scoring engine that combines:
+- **CRS Score** (0-100+): From traditional ModSecurity rules.
+- **ML Anomaly Score**: From Isolation Forest.
+- **ML Confidence**: From Attack Classifier.
+
+The final score determines the action (Allow, Log, Challenge, Block).
+
+## Architecture Changes
+- **Dependencies**: Added `ort` and `ndarray` to `core/Cargo.toml`.
+- **RuleEngine**: Updated to inspect requests using both static rules and ML models.
+- **Training Pipeline**: Python scripts in `ml/training/` to generate models from traffic logs.
+
+## Usage
+1. **Train Models**:
+   ```bash
+   cd ml/training
+   pip install -r requirements.txt
+   python3 prepare_dataset.py
+   python3 train_anomaly.py
+   python3 train_classifier.py
+   ```
+2. **Run WAF**:
+   ```bash
+   cargo run --bin waf-killer-core
+   ```
+
+## Next Steps
+- Implement `baseline.rs` fully for real-time statistical baselining.
+- Collect real traffic data to replace dummy datasets.
+- Tune scoring weights based on false positive rates.

@@ -1,0 +1,7 @@
+<script>alert(1)</script>
+%3Cscript%3Ealert(1)%3C/script%3E
+&lt;script&gt;alert(1)&lt;/script&gt;
+\u003Cscript\u003Ealert(1)\u003C/script\u003E
+<ScRiPt>alert(1)</sCrIpT>
+<img src=x onerror=alert(1)>
+javascript:alert(1)

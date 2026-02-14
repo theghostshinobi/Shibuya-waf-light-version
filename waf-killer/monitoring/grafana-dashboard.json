@@ -1,0 +1,116 @@
+{
+    "dashboard": {
+        "title": "Shibuya WAF - Production Dashboard",
+        "tags": [
+            "waf",
+            "security",
+            "shibuya"
+        ],
+        "timezone": "browser",
+        "panels": [
+            {
+                "id": 1,
+                "title": "Requests per Second",
+                "type": "graph",
+                "targets": [
+                    {
+                        "expr": "rate(shibuya_requests_total[1m])",
+                        "legendFormat": "{{status}}"
+                    }
+                ],
+                "gridPos": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 12,
+                    "h": 8
+                }
+            },
+            {
+                "id": 2,
+                "title": "Block Rate",
+                "type": "stat",
+                "targets": [
+                    {
+                        "expr": "rate(shibuya_requests_blocked_total[5m])"
+                    }
+                ],
+                "gridPos": {
+                    "x": 12,
+                    "y": 0,
+                    "w": 6,
+                    "h": 8
+                }
+            },
+            {
+                "id": 3,
+                "title": "ML Anomaly Detection",
+                "type": "graph",
+                "targets": [
+                    {
+                        "expr": "shibuya_ml_anomaly_score",
+                        "legendFormat": "Anomaly Score"
+                    }
+                ],
+                "gridPos": {
+                    "x": 0,
+                    "y": 8,
+                    "w": 12,
+                    "h": 8
+                }
+            },
+            {
+                "id": 4,
+                "title": "Top Blocked IPs",
+                "type": "table",
+                "targets": [
+                    {
+                        "expr": "topk(10, sum by (ip) (shibuya_ip_blocks_total))"
+                    }
+                ],
+                "gridPos": {
+                    "x": 12,
+                    "y": 8,
+                    "w": 12,
+                    "h": 8
+                }
+            },
+            {
+                "id": 5,
+                "title": "Response Time (p99)",
+                "type": "graph",
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.99, rate(shibuya_request_duration_seconds_bucket[5m]))"
+                    }
+                ],
+                "gridPos": {
+                    "x": 0,
+                    "y": 16,
+                    "w": 12,
+                    "h": 8
+                }
+            },
+            {
+                "id": 6,
+                "title": "Threat Intel Blocks",
+                "type": "stat",
+                "targets": [
+                    {
+                        "expr": "sum(shibuya_threat_intel_blocks_total)"
+                    }
+                ],
+                "gridPos": {
+                    "x": 12,
+                    "y": 16,
+                    "w": 6,
+                    "h": 8
+                }
+            }
+        ],
+        "refresh": "5s",
+        "time": {
+            "from": "now-1h",
+            "to": "now"
+        }
+    }
+}

@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: waf-killer
+  annotations:
+    # Use cert-manager for automatic TLS
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+    # Rate limiting at ingress
+    nginx.ingress.kubernetes.io/limit-rps: "1000"
+
+    # Connection limits
+    nginx.ingress.kubernetes.io/limit-connections: "10"
+
+    # Timeouts
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "5"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+
+    # WebSocket support
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+spec:
+  ingressClassName: nginx
+
+  tls:
+    - hosts:
+        - waf.example.com
+        - "*.waf.example.com"
+      secretName: waf-killer-tls
+
+  rules:
+    - host: waf.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: waf-killer
+                port:
+                  number: 9091

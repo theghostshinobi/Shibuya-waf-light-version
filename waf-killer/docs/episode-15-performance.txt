@@ -1,0 +1,47 @@
+# Episode 15: Performance Optimization - "The Speed Demon"
+
+## Overview
+This episode introduces significant performance enhancements to reach <1ms p99 latency and support 1M RPS per instance.
+
+## Key Features
+
+### 1. Fast Path Architecture
+- **Request Classifier**: Quickly identifies safe requests (whitelisted IPs, static content) to bypass heavy inspection.
+- **Negative Caching**: Remembers hashes of previously inspected "clean" requests to skip re-inspection.
+- **Early Exit**: Inspects partial scores to exit block/allow decisions as early as possible.
+
+### 2. SIMD Acceleration
+- **AVX2/AVX-512**: Uses CPU vector instructions for high-speed string matching in the inspection engine.
+- **Fallback**: Gracefully falls back to standard string matching on non-supported hardware.
+
+### 3. Intelligent Caching
+- **Rule Cache**: Caches compiled regexes to avoid recompilation overhead.
+- **Pattern Cache**: Caches results of expensive pattern matching operations.
+
+### 4. Zero-Copy Architecture
+- **Zero-Copy Proxy**: Uses `tokio::io::copy` (which leverages splice on Linux) for direct upstream proxying when inspection is bypassed.
+- **Buffer Pool**: Reuses `BytesMut` buffers to reduce memory allocation churn.
+- **Mimalloc**: Replaces the system allocator with `mimalloc` for better performance.
+
+## Benchmarks
+
+### Results
+(Projected based on architectural changes)
+- **Throughput**: ~1.2M RPS (Clean traffic)
+- **Latency (p99)**: 0.8ms
+- **Memory**: <100MB stable usage with pools
+
+### How to Run Benchmarks
+
+```bash
+# Throughput and Latency
+./tools/benchmark.sh
+
+# CPU Flamegraph
+./tools/flamegraph.sh
+```
+
+## Next Steps
+- Tune pool sizes based on production load.
+- Expand SIMD coverage to more rule operators.
+- Implement GPU offloading for ML inference in future episodes.

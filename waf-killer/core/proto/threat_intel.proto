@@ -1,0 +1,67 @@
+syntax = "proto3";
+package threat_intel;
+option go_package = "github.com/ghostshinobi/waf-killer/threat-intel/proto";
+
+service ThreatIntel {
+    // Check IP reputation
+    rpc CheckIP(CheckIPRequest) returns (CheckIPResponse);
+    
+    // Batch check (for warming cache)
+    rpc CheckIPBatch(CheckIPBatchRequest) returns (CheckIPBatchResponse);
+    
+    // Subscribe to updates (streaming)
+    rpc SubscribeUpdates(SubscribeRequest) returns (stream ThreatUpdate);
+    
+    // Report malicious IP (contribute back to community)
+    rpc ReportIP(ReportIPRequest) returns (ReportIPResponse);
+}
+
+message CheckIPRequest {
+    string ip = 1;
+}
+
+message CheckIPResponse {
+    string ip = 1;
+    bool is_malicious = 2;
+    float confidence = 3;
+    int32 severity = 4;
+    repeated string categories = 5;
+    string source = 6;
+    int64 last_seen_unix = 7;
+}
+
+message CheckIPBatchRequest {
+    repeated string ips = 1;
+}
+
+message CheckIPBatchResponse {
+    map<string, CheckIPResponse> results = 1;
+}
+
+message SubscribeRequest {
+    bool include_existing = 1;
+}
+
+message ThreatUpdate {
+    string ip = 1;
+    UpdateAction action = 2;  // ADD, REMOVE, UPDATE
+    CheckIPResponse data = 3;
+}
+
+enum UpdateAction {
+    ADD = 0;
+    REMOVE = 1;
+    UPDATE = 2;
+}
+
+message ReportIPRequest {
+    string ip = 1;
+    string attack_type = 2;  // "SQLi", "XSS", etc.
+    float confidence = 3;
+    string evidence = 4;  // Optional: payload sample
+}
+
+message ReportIPResponse {
+    bool success = 1;
+    string message = 2;
+}

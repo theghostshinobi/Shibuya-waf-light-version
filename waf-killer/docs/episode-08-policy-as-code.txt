@@ -1,0 +1,47 @@
+Episode 8: Policy-as-Code
+===========================
+
+Description
+-----------
+This episode introduces a Git-based configuration management system (Policy-as-Code) for the WAF. It allows security teams to manage WAF policies declaratively using YAML files stored in a Git repository. Changes are version-controlled, reviewed via Pull Requests, and automatically applied (or simulated) by the WAF.
+
+Key Features
+------------
+1. **Declarative Policy (YAML)**: Define WAF settings, rule overrides, rate limits, and machine learning thresholds in a single `policy.yaml`.
+2. **Git Integration**: WAF can pull policies directly from a Git repository (`Core Policy Loader`).
+3. **Hot Reload**: The WAF detects changes (via Git hooks or filesystem watching) and reloads the policy without downtime using atomic swaps (`ArcSwap`).
+4. **Validation**: Policies are validated against a JSON Schema and semantic rules before application.
+5. **Simulation**: New policies can be simulated on historical traffic to predict false positives before enabling them (CLI: `simulate`).
+6. **CLI Support**:
+   - `waf policy validate`: Check local policy files.
+   - `waf policy simulate`: Run policy against past traffic logs.
+   - `waf policy apply`: Push policy updates to the running WAF (via gRPC).
+
+Components
+----------
+- **Core**:
+  - `core/src/policy/`: Contains validator, loader (Git), applier, and simulator logic.
+  - `core/src/config/policy_schema.rs`: Rust structs for policy.
+  - `schemas/policy.schema.json`: JSON Schema for validation.
+  - `api/grpc.rs`: New RPCs `ApplyPolicy` and `SimulatePolicy`.
+- **CLI**:
+  - `cli/src/commands/policy.rs`: CLI implementation for policy commands.
+- **Proto**:
+  - `proto/waf_api.proto`: RPC definitions.
+
+Usage
+-----
+1. Create a `policy.yaml` (see `examples/policies/basic.yaml`).
+2. Validate locally:
+   `waf-killer-cli policy validate --file policy.yaml`
+3. Simulate (requires historical logs):
+   `waf-killer-cli policy simulate --file policy.yaml --range 24h`
+4. Apply to running WAF:
+   `waf-killer-cli policy apply --file policy.yaml`
+
+Dependencies Added
+------------------
+- `git2`: For Git operations.
+- `notify`: For filesystem watching.
+- `jsonschema`: For schema validation.
+- `arc-swap`: For atomic configuration updates.

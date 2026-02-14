@@ -1,0 +1,95 @@
+   Compiling core-error v0.0.0
+   Compiling object v0.36.7
+   Compiling num_enum_derive v0.7.5
+    Checking assert_matches v1.5.0
+   Compiling waf-killer-core v0.1.0 (/Users/ghostshinobi/Desktop/shibuya/waf-killer/core)
+    Checking num_enum v0.7.5
+    Checking aya-obj v0.1.0
+    Checking aya v0.12.0
+error[E0432]: unresolved imports `libc::nlattr`, `libc::nlmsgerr`, `libc::nlmsghdr`, `libc::sockaddr_nl`, `libc::AF_NETLINK`, `libc::ETH_P_ALL`, `libc::IFLA_XDP`, `libc::NETLINK_EXT_ACK`, `libc::NETLINK_ROUTE`, `libc::NLA_ALIGNTO`, `libc::NLA_F_NESTED`, `libc::NLA_TYPE_MASK`, `libc::NLMSG_DONE`, `libc::NLMSG_ERROR`, `libc::NLM_F_ACK`, `libc::NLM_F_CREATE`, `libc::NLM_F_DUMP`, `libc::NLM_F_ECHO`, `libc::NLM_F_EXCL`, `libc::NLM_F_MULTI`, `libc::NLM_F_REQUEST`, `libc::RTM_DELTFILTER`, `libc::RTM_GETTFILTER`, `libc::RTM_NEWQDISC`, `libc::RTM_NEWTFILTER`, `libc::RTM_SETLINK`, `libc::SOL_NETLINK`
+  --> /Users/ghostshinobi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.12.0/src/sys/netlink.rs:10:18
+   |
+10 |     getsockname, nlattr, nlmsgerr, nlmsghdr, recv, send, setsockopt, sockaddr_nl, socket,
+   |                  ^^^^^^  ^^^^^^^^  ^^^^^^^^                          ^^^^^^^^^^^ no `sockaddr_nl` in the root
+   |                  |       |         |
+   |                  |       |         no `nlmsghdr` in the root
+   |                  |       no `nlmsgerr` in the root
+   |                  no `nlattr` in the root
+11 |     AF_NETLINK, AF_UNSPEC, ETH_P_ALL, IFF_UP, IFLA_XDP, NETLINK_EXT_ACK, NETLINK_ROUTE,
+   |     ^^^^^^^^^^             ^^^^^^^^^          ^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^ no `NETLINK_ROUTE` in the root
+   |     |                      |                  |         |
+   |     |                      |                  |         no `NETLINK_EXT_ACK` in the root
+   |     |                      |                  no `IFLA_XDP` in the root
+   |     |                      no `ETH_P_ALL` in the root
+   |     no `AF_NETLINK` in the root
+12 |     NLA_ALIGNTO, NLA_F_NESTED, NLA_TYPE_MASK, NLMSG_DONE, NLMSG_ERROR, NLM_F_ACK, NLM_F_CREATE,
+   |     ^^^^^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^
+   |     |
+   |     no `NLA_ALIGNTO` in the root
+13 |     NLM_F_DUMP, NLM_F_ECHO, NLM_F_EXCL, NLM_F_MULTI, NLM_F_REQUEST, RTM_DELTFILTER, RTM_GETTFILTER,
+   |     ^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+14 |     RTM_NEWQDISC, RTM_NEWTFILTER, RTM_SETLINK, SOCK_RAW, SOL_NETLINK,
+   |     ^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^            ^^^^^^^^^^^
+   |
+help: a similar name exists in the module
+   |
+10 -     getsockname, nlattr, nlmsgerr, nlmsghdr, recv, send, setsockopt, sockaddr_nl, socket,
+10 +     getsockname, nlattr, nlmsgerr, msghdr, recv, send, setsockopt, sockaddr_nl, socket,
+   |
+help: a similar name exists in the module
+   |
+10 -     getsockname, nlattr, nlmsgerr, nlmsghdr, recv, send, setsockopt, sockaddr_nl, socket,
+10 +     getsockname, nlattr, nlmsgerr, nlmsghdr, recv, send, setsockopt, sockaddr_dl, socket,
+   |
+help: a similar name exists in the module
+   |
+11 -     AF_NETLINK, AF_UNSPEC, ETH_P_ALL, IFF_UP, IFLA_XDP, NETLINK_EXT_ACK, NETLINK_ROUTE,
+11 +     AF_IMPLINK, AF_UNSPEC, ETH_P_ALL, IFF_UP, IFLA_XDP, NETLINK_EXT_ACK, NETLINK_ROUTE,
+   |
+
+error[E0432]: unresolved imports `libc::SYS_bpf`, `libc::SYS_perf_event_open`
+  --> /Users/ghostshinobi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.12.0/src/sys/mod.rs:17:19
+   |
+17 | use libc::{pid_t, SYS_bpf, SYS_perf_event_open};
+   |                   ^^^^^^^  ^^^^^^^^^^^^^^^^^^^ no `SYS_perf_event_open` in the root
+   |                   |
+   |                   no `SYS_bpf` in the root
+
+error[E0425]: cannot find value `CLOCK_BOOTTIME` in crate `libc`
+    --> /Users/ghostshinobi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.12.0/src/programs/utils.rs:75:37
+     |
+  75 |     let since_boot = get_time(libc::CLOCK_BOOTTIME);
+     |                                     ^^^^^^^^^^^^^^ help: a constant with a similar name exists: `CLOCK_REALTIME`
+     |
+    ::: /Users/ghostshinobi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.180/src/unix/bsd/apple/mod.rs:1900:1
+     |
+1900 | pub const CLOCK_REALTIME: crate::clockid_t = 0;
+     | ------------------------------------------ similarly named constant `CLOCK_REALTIME` defined here
+
+    Checking aya-log-common v0.1.15
+error[E0308]: `match` arms have incompatible types
+   --> /Users/ghostshinobi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aya-0.12.0/src/sys/mod.rs:110:17
+    |
+ 95 | /         match call {
+ 96 | |             Syscall::Bpf { cmd, attr } => {
+ 97 | |                 libc::syscall(SYS_bpf, cmd, attr, mem::size_of::<bpf_attr>())
+    | |                 ------------------------------------------------------------- this is found to be of type `i32`
+...   |
+105 | |             } => libc::syscall(SYS_perf_event_open, &attr, pid, cpu, group, flags),
+    | |                  ----------------------------------------------------------------- this is found to be of type `i32`
+...   |
+110 | |                 int
+    | |                 ^^^ expected `i32`, found `i64`
+111 | |             }
+112 | |         }
+    | |_________- `match` arms have incompatible types
+    |
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+    |
+110 |                 int.try_into().unwrap()
+    |                    ++++++++++++++++++++
+
+Some errors have detailed explanations: E0308, E0425, E0432.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `aya` (lib) due to 4 previous errors
+warning: build failed, waiting for other jobs to finish...

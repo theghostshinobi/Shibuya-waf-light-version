@@ -1,0 +1,523 @@
+    Checking waf-killer-core v0.1.0 (/Users/ghostshinobi/Desktop/shibuya/waf-killer/core)
+error[E0432]: unresolved import `super::parser`
+ --> core/src/api_protection/openapi/path_matcher.rs:2:12
+  |
+2 | use super::parser::{OpenAPISpec, Operation};
+  |            ^^^^^^ could not find `parser` in `super`
+
+error[E0432]: unresolved import `super::parser`
+ --> core/src/api_protection/openapi/schema_resolver.rs:2:12
+  |
+2 | use super::parser::{Schema, SchemaType};
+  |            ^^^^^^ could not find `parser` in `super`
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/config/policy_schema.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+  --> core/src/config/mod.rs:15:5
+   |
+15 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FeedType`
+  --> core/src/config/mod.rs:23:46
+   |
+23 | use crate::threat_intel::types::{ThreatFeed, FeedType};
+   |                                              ^^^^^^^^
+
+warning: unused import: `AnomalyPrediction`
+  --> core/src/proxy/mod.rs:29:47
+   |
+29 | use crate::ml::inference::{MLInferenceEngine, AnomalyPrediction};
+   |                                               ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Ordering`
+ --> core/src/state.rs:2:37
+  |
+2 | use std::sync::atomic::{AtomicBool, Ordering};
+  |                                     ^^^^^^^^
+
+warning: unused import: `arc_swap::ArcSwap`
+ --> core/src/api/config.rs:6:5
+  |
+6 | use arc_swap::ArcSwap;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ApiProtectionState` and `ApiProtectionStatsSnapshot`
+  --> core/src/api/api_protection.rs:10:36
+   |
+10 | use crate::api_protection::state::{ApiProtectionState, ApiProtectionStatsSnapshot};
+   |                                    ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `delete`, `post`, and `put`
+   --> core/src/api/tenants.rs:106:25
+    |
+106 |     use axum::routing::{post, put, delete};
+    |                         ^^^^  ^^^  ^^^^^^
+
+warning: unused import: `tokio::sync::RwLock`
+ --> core/src/api/bot_detection.rs:7:5
+  |
+7 | use tokio::sync::RwLock;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::time::interval`
+ --> core/src/health.rs:6:5
+  |
+6 | use tokio::time::interval;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `debug`
+ --> core/src/health.rs:7:15
+  |
+7 | use tracing::{debug, info, warn};
+  |               ^^^^^
+
+warning: unused imports: `Counter` and `register_counter`
+  --> core/src/metrics.rs:10:11
+   |
+10 |     opts, register_counter, register_histogram, register_int_counter,
+   |           ^^^^^^^^^^^^^^^^
+11 |     Counter, Histogram, IntCounter,
+   |     ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/telemetry.rs:5:5
+  |
+5 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Mutex`
+  --> core/src/telemetry.rs:11:5
+   |
+11 | use std::sync::Mutex;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `serde_json::json`
+  --> core/src/telemetry.rs:13:5
+   |
+13 | use serde_json::json;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `Duration as ChronoDuration`
+  --> core/src/admin_api.rs:33:19
+   |
+33 | use chrono::{Utc, Duration as ChronoDuration};
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AttackCategory`, `RequestLog`, and `ShadowReport`
+  --> core/src/admin_api.rs:40:33
+   |
+40 | use crate::state::{SharedState, RequestLog, ShadowReport, TrafficTimeSeries, AttackCategory};
+   |                                 ^^^^^^^^^^  ^^^^^^^^^^^^                     ^^^^^^^^^^^^^^
+
+warning: unused import: `FeatureVector`
+ --> core/src/rules/engine.rs:7:45
+  |
+7 | use crate::ml::features::{extract_features, FeatureVector};
+  |                                             ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> core/src/rules/engine.rs:13:5
+   |
+13 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/rules/loader.rs:2:14
+  |
+2 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> core/src/rules/operators.rs:2:5
+  |
+2 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused imports: `alpha1`, `alphanumeric1`, `many0`, `map_res`, `multispace0`, `recognize`, `separated_pair`, `take_while`, and `tuple`
+  --> core/src/rules/parser.rs:8:58
+   |
+ 8 |     bytes::complete::{escaped, is_not, tag, tag_no_case, take_while, take_while1},
+   |                                                          ^^^^^^^^^^
+ 9 |     character::complete::{alpha1, alphanumeric1, char, digit1, multispace0, multispace1, space0},
+   |                           ^^^^^^  ^^^^^^^^^^^^^                ^^^^^^^^^^^
+10 |     combinator::{map, map_res, opt, recognize, value},
+   |                       ^^^^^^^       ^^^^^^^^^
+11 |     multi::{many0, separated_list0, separated_list1},
+   |             ^^^^^
+12 |     sequence::{delimited, pair, preceded, separated_pair, terminated, tuple},
+   |                                           ^^^^^^^^^^^^^^              ^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/rules/variables.rs:2:5
+  |
+2 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ml/inference.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `Value`
+ --> core/src/ml/inference.rs:4:21
+  |
+4 |     value::{Tensor, Value},
+  |                     ^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/ml/inference.rs:8:5
+  |
+8 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TrafficStats` and `extract_features`
+  --> core/src/ml/inference.rs:10:27
+   |
+10 | use crate::ml::features::{extract_features, TrafficStats};
+   |                           ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `crate::parser::context::RequestContext`
+  --> core/src/ml/inference.rs:11:5
+   |
+11 | use crate::parser::context::RequestContext;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `ScalerError`
+  --> core/src/ml/inference.rs:12:41
+   |
+12 | use crate::ml::scaler::{ScalerMetadata, ScalerError};
+   |                                         ^^^^^^^^^^^
+
+warning: unused import: `Deserialize`
+ --> core/src/ml/feedback.rs:4:13
+  |
+4 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> core/src/wasm/mod.rs:4:5
+  |
+4 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `warn`
+ --> core/src/wasm/mod.rs:5:24
+  |
+5 | use log::{info, error, warn};
+  |                        ^^^^
+
+warning: unused import: `Config as NotifyConfig`
+ --> core/src/wasm/mod.rs:6:58
+  |
+6 | use notify::{Watcher, RecursiveMode, RecommendedWatcher, Config as NotifyConfig};
+  |                                                          ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/wasm/mod.rs:8:22
+  |
+8 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/wasm/runtime.rs:4:5
+  |
+4 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow`
+ --> core/src/ebpf/noop.rs:3:22
+  |
+3 | use anyhow::{Result, anyhow};
+  |                      ^^^^^^
+
+warning: unused import: `std::time::Duration as StdDuration`
+ --> core/src/threat_intel/client.rs:9:5
+  |
+9 | use std::time::Duration as StdDuration; // Keep std duration for sleep/interval if needed, but here mostly logic
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/threat_intel/types.rs:4:5
+  |
+4 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `header`
+ --> core/src/threat_intel/abuseipdb.rs:1:23
+  |
+1 | use reqwest::{Client, header};
+  |                       ^^^^^^
+
+warning: unused import: `Serialize`
+ --> core/src/threat_intel/abuseipdb.rs:2:26
+  |
+2 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: variant `FALSE_POSITIVE` should have an upper camel case name
+  --> core/src/vulnerabilities/mod.rs:26:5
+   |
+26 |     FALSE_POSITIVE,
+   |     ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `FalsePositive`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: unused import: `Duration`
+ --> core/src/tenancy/mod.rs:1:24
+  |
+1 | use chrono::{DateTime, Duration, Utc};
+  |                        ^^^^^^^^
+
+warning: unused import: `crate::tenancy::context::TenantContext`
+ --> core/src/tenancy/isolation.rs:2:5
+  |
+2 | use crate::tenancy::context::TenantContext;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+ --> core/src/tenancy/quota.rs:4:5
+  |
+4 | use chrono::Utc;
+  |     ^^^^^^^^^^^
+
+warning: unused import: `TenantQuotas`
+ --> core/src/tenancy/quota.rs:6:30
+  |
+6 | use crate::tenancy::{Tenant, TenantQuotas};
+  |                              ^^^^^^^^^^^^
+
+warning: unused import: `RequestStrategy`
+ --> core/src/tenancy/billing.rs:3:22
+  |
+3 | use stripe::{Client, RequestStrategy, StripeError};
+  |                      ^^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow::anyhow`
+ --> core/src/api_protection/openapi/validator.rs:1:5
+  |
+1 | use anyhow::anyhow;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow`
+ --> core/src/api_protection/openapi/path_matcher.rs:3:22
+  |
+3 | use anyhow::{Result, anyhow};
+  |                      ^^^^^^
+
+warning: unused import: `serde_json::Value`
+ --> core/src/api_protection/openapi/schema_resolver.rs:4:5
+  |
+4 | use serde_json::Value;
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `PathItem`
+ --> core/src/api_protection/registry.rs:8:35
+  |
+8 | use super::openapi::{OpenApiSpec, PathItem};
+  |                                   ^^^^^^^^
+
+warning: unused import: `FileSecurityChecks`
+ --> core/src/parser/body.rs:3:48
+  |
+3 |     validate_file_upload, validate_form_field, FileSecurityChecks,
+  |                                                ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `info`
+  --> core/src/parser/body.rs:12:28
+   |
+12 | use tracing::{debug, warn, info};
+   |                            ^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/parser/context.rs:2:5
+  |
+2 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `InspectionMetadata`
+ --> core/src/parser/http.rs:2:63
+  |
+2 | use crate::parser::context::{RequestContext, TransformedData, InspectionMetadata};
+  |                                                               ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/parser/http.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `AsyncCommands`
+ --> core/src/ratelimit/distributed.rs:2:13
+  |
+2 | use redis::{AsyncCommands, Script};
+  |             ^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ratelimit/distributed.rs:3:22
+  |
+3 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/traffic_stats.rs:4:5
+  |
+4 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: use of deprecated method `redis::Client::get_tokio_connection_manager`: use get_connection_manager instead
+  --> core/src/ratelimit/distributed.rs:65:35
+   |
+65 |                      match client.get_tokio_connection_manager().await {
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:50:45
+   |
+50 |                 matcher.insert(path, "GET", op.clone())?;
+   |                                             ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:53:46
+   |
+53 |                 matcher.insert(path, "POST", op.clone())?;
+   |                                              ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:56:45
+   |
+56 |                 matcher.insert(path, "PUT", op.clone())?;
+   |                                             ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:59:48
+   |
+59 |                 matcher.insert(path, "DELETE", op.clone())?;
+   |                                                ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:62:47
+   |
+62 |                 matcher.insert(path, "PATCH", op.clone())?;
+   |                                               ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:65:49
+   |
+65 |                 matcher.insert(path, "OPTIONS", op.clone())?;
+   |                                                 ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/path_matcher.rs:68:46
+   |
+68 |                 matcher.insert(path, "HEAD", op.clone())?;
+   |                                              ^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/schema_resolver.rs:39:23
+   |
+39 |             return Ok(cached.clone());
+   |                       ^^^^^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> core/src/api_protection/openapi/schema_resolver.rs:97:40
+   |
+97 |             for (name, prop_schema) in properties.iter() {
+   |                                        ^^^^^^^^^^ cannot infer type
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+  --> core/src/api_protection/openapi/schema_resolver.rs:98:44
+   |
+98 |                 let resolved_prop = if let Some(ref ref_str) = prop_schema.reference {
+   |                                            ^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `std::prelude::v1::Some`
+  --> /private/tmp/rust-20251211-8355-mhy62k/rustc-1.92.0-src/library/core/src/option.rs:607:5
+
+error[E0282]: type annotations needed
+   --> core/src/api_protection/openapi/schema_resolver.rs:106:39
+    |
+106 |                 new_properties.insert(name.clone(), resolved_prop);
+    |                                       ^^^^ cannot infer type
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> core/src/api_protection/openapi/schema_resolver.rs:114:20
+    |
+114 |             if let Some(ref ref_str) = items.reference {
+    |                    ^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `std::prelude::v1::Some`
+   --> /private/tmp/rust-20251211-8355-mhy62k/rustc-1.92.0-src/library/core/src/option.rs:607:5
+
+warning: unused import: `futures::stream::TryStreamExt`
+  --> core/src/parser/body.rs:13:5
+   |
+13 | use futures::stream::TryStreamExt;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `e`
+   --> core/src/api/config.rs:185:16
+    |
+185 |     if let Err(e) = reload_waf_components(&state, &config).await {
+    |                ^ help: if this is intentional, prefix it with an underscore: `_e`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `line`
+  --> core/src/rules/loader.rs:26:18
+   |
+26 |              for line in content.lines() {
+   |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_line`
+
+warning: unused variable: `t`
+   --> core/src/rules/parser.rs:215:17
+    |
+215 |             let t = match val_str.as_str() {
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_t`
+
+warning: unused variable: `input`
+   --> core/src/rules/parser.rs:323:10
+    |
+323 |     let (input, actions) = parse_actions(input)
+    |          ^^^^^ help: if this is intentional, prefix it with an underscore: `_input`
+
+warning: unused variable: `table`
+  --> core/src/tenancy/isolation.rs:58:9
+   |
+58 |         table: &str,
+   |         ^^^^^ help: if this is intentional, prefix it with an underscore: `_table`
+
+warning: unused variable: `max_complexity`
+   --> core/src/api_protection/graphql/mod.rs:235:47
+    |
+235 | pub fn validate_query_complexity(query: &str, max_complexity: usize) -> Result<ComplexityResult> {
+    |                                               ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_max_complexity`
+
+warning: unused variable: `field_name`
+ --> core/src/parser/multipart_security.rs:7:5
+  |
+7 |     field_name: &str,
+  |     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_field_name`
+
+warning: unused variable: `ja3`
+   --> core/src/botdetection/fingerprint.rs:147:13
+    |
+147 |         let ja3 = calculate_ja3_hash(tls);
+    |             ^^^ help: if this is intentional, prefix it with an underscore: `_ja3`
+
+Some errors have detailed explanations: E0277, E0282, E0432.
+For more information about an error, try `rustc --explain E0277`.
+warning: `waf-killer-core` (lib) generated 68 warnings
+error: could not compile `waf-killer-core` (lib) due to 14 previous errors; 68 warnings emitted

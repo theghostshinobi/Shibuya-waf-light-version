@@ -1,0 +1,204 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waf-killer
+  labels:
+    app: waf-killer
+    version: v1
+spec:
+  replicas: 3 # Overridden by HPA
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0 # Zero downtime
+  selector:
+    matchLabels:
+      app: waf-killer
+  template:
+    metadata:
+      labels:
+        app: waf-killer
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+
+      # Service account for K8s API access
+      serviceAccountName: waf-killer
+
+      # Topology spread for HA
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: waf-killer
+
+      # Init container: wait for DB
+      initContainers:
+        - name: wait-for-db
+          image: postgres:15-alpine
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h $(DB_HOST) -p 5432; do
+                echo "Waiting for database..."
+                sleep 2
+              done
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: waf-killer-config
+                  key: db_host
+
+      containers:
+        - name: waf-killer
+          image: ghcr.io/waf-killer/waf-killer:latest
+          imagePullPolicy: IfNotPresent
+
+          # Resource requests/limits
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 2000m
+              memory: 2Gi
+
+          # Ports
+          ports:
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+            - name: http-api
+              containerPort: 9091
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+
+          # Environment variables
+          env:
+            - name: RUST_LOG
+              value: "info,waf_killer=debug"
+
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: waf-killer-secrets
+                  key: database_url
+
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: waf-killer-secrets
+                  key: redis_url
+
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+
+          # Volume mounts
+          volumeMounts:
+            - name: config
+              mountPath: /etc/waf/config.yaml
+              subPath: config.yaml
+              readOnly: true
+
+            - name: tls
+              mountPath: /etc/waf/tls
+              readOnly: true
+
+            - name: owasp-crs
+              mountPath: /etc/waf/owasp-crs
+              readOnly: true
+
+          # Liveness probe (is pod alive?)
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 9091
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          # Readiness probe (is pod ready to serve traffic?)
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 9091
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 2
+
+          # Startup probe (allow slow startup)
+          startupProbe:
+            httpGet:
+              path: /health/startup
+              port: 9091
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30 # 150s max startup time
+
+          # Graceful shutdown
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - sleep 15 # Wait for connections to drain
+
+          # Security
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE # Bind to port 443
+
+      # Volumes
+      volumes:
+        - name: config
+          configMap:
+            name: waf-killer-config
+
+        - name: tls
+          secret:
+            secretName: waf-killer-tls
+
+        - name: owasp-crs
+          persistentVolumeClaim:
+            claimName: owasp-crs-pvc
+
+      # Graceful shutdown
+      terminationGracePeriodSeconds: 60

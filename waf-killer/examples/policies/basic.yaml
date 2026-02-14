@@ -1,0 +1,84 @@
+version: "1.0"
+metadata:
+  name: "basic-protection"
+  description: "Basic WAF policy for general protection"
+  environment: "production"
+  owner: "security-team"
+  last_updated: "2026-01-26T10:00:00Z"
+
+global:
+  mode: blocking
+  paranoia_level: 2
+  anomaly_threshold: 5
+  default_action: allow
+
+  ml:
+    anomaly_detection: true
+    classification: true
+    confidence_threshold: 0.8
+
+  threat_intel:
+    enabled: true
+    auto_block_threshold: 0.95
+
+  rate_limit:
+    enabled: true
+    requests_per_minute: 1000
+    burst: 50
+
+# IP Lists (Optional)
+ip_lists:
+  whitelist:
+    - 127.0.0.1
+  blacklist: []
+
+# Geo (Optional)
+geo:
+  mode: off
+  allowed_countries: []
+  blocked_countries: []
+
+routes:
+  - path: /api/*
+    methods: [GET, POST, PUT, DELETE]
+    policy:
+      anomaly_threshold: 8
+      require_auth: true
+      rate_limit:
+        requests_per_minute: 100
+        per_ip: true
+      custom_rules:
+        - id: "api-001"
+          name: "Block Empty UA"
+          condition: "request.headers.user_agent == ''"
+          action: block
+          message: "Empty User-Agent"
+
+custom_rules:
+  - id: "custom-100"
+    name: "Block SQL keywords"
+    enabled: true
+    condition: "request.url contains 'drop table'"
+    action: block
+    score: 5
+
+crs:
+  enabled: true
+  paranoia_level: 2
+  disabled_rules: [942100]
+  rule_overrides: []
+
+response:
+  error_pages: {}
+  headers:
+    add:
+      X-Frame-Options: "DENY"
+    remove:
+      - "Server"
+
+logging:
+  level: info
+  sampling:
+    allowed_requests: 0.1
+    blocked_requests: 1.0
+  redact: ["password"]

@@ -1,0 +1,28 @@
+name: Validate WAF Policy
+
+on:
+  push:
+    paths:
+      - "policies/**"
+      - "waf-killer/**"
+  pull_request:
+    paths:
+      - "policies/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build WAF CLI
+        run: cargo build --release --bin waf-killer-cli
+        working-directory: waf-killer
+
+      - name: Validate Policy
+        run: ./waf-killer/target/release/waf-killer-cli policy validate --file policies/production.yaml
+        # Assuming policies are in a 'policies' folder in root of repo
+        # Checks if the policy file is valid against schema and semantic rules

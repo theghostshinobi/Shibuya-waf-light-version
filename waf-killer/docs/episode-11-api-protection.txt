@@ -1,0 +1,43 @@
+# EPISODE 11: OPENAPI/GRAPHQL NATIVE PROTECTION
+
+## Overview
+Episode 11 adds native security for modern APIs. Unlike traditional WAFs that treat JSON/GraphQL as plain text, WAF Killer understands the schema and structure of your APIs.
+
+## OpenAPI Native Protection
+
+### Key Features
+1. **Schema Validation**: Every request is validated against your OpenAPI spec (YAML/JSON).
+2. **Type Enforcement**: Parameters are checked for correct types, patterns, and ranges.
+3. **Required Field Checking**: Prevents "Under-posting" attacks by ensuring mandatory fields are present.
+4. **Body Validation**: Deep validation of JSON request bodies using JSON Schema.
+5. **Auto-Learning**: WAF can infer the OpenAPI spec by analyzing typical traffic patterns.
+
+### Configuration
+```yaml
+api_protection:
+  openapi:
+    enabled: true
+    specs:
+      - path: /etc/waf/specs/api-v1.yaml
+        base_path: /api/v1
+    validation:
+      strict: true
+```
+
+## GraphQL Native Protection
+
+### Layer 7 Deep Inspection
+1. **Depth Limiting**: Prevents "Nested DoS" (e.g., query { a { b { a { b ... } } } }).
+2. **Complexity Scoring**: Assigns weights to fields to block computationally expensive queries.
+3. **Field-Level Auth**: Restricts access to specific GraphQL fields based on user roles.
+4. **Introspection Control**: Disables introspection in production to prevent schema leaks.
+5. **Rate Limiting**: Per-operation (Query vs Mutation) rate limiting.
+
+### Limits Example
+- `max_depth: 10`
+- `max_complexity: 1000`
+
+## CLI Commands
+- `waf api load-spec --file api.yaml --base-path /api/v1`
+- `waf graphql test --query "query { ... }"`
+- `waf api learn --output inferred.yaml --duration 24h`

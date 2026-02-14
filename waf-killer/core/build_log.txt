@@ -1,0 +1,538 @@
+    Checking waf-killer-core v0.1.0 (/Users/ghostshinobi/Desktop/hunterz/waf-killer/core)
+error[E0432]: unresolved imports `ort::Session`, `ort::Value`, `ort::GraphOptimizationLevel`
+ --> core/src/ml/inference.rs:1:11
+  |
+1 | use ort::{Session, Value, GraphOptimizationLevel as OptimizationLevel};
+  |           ^^^^^^^  ^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `GraphOptimizationLevel` in the root
+  |           |        |
+  |           |        no `Value` in the root
+  |           no `Session` in the root
+  |
+  = help: consider importing one of these items instead:
+          ort::session::Session
+          pingora::connectors::http::custom::Connection::Session
+          pingora::prelude::Session
+          pingora::protocols::http::server::Session
+  = help: consider importing one of these items instead:
+          clap::builder::Resettable::Value
+          config::Value
+          ort::value::Value
+          redis::Value
+          serde_json::Value
+          serde_yaml::Value
+          sqlx::Value
+          tracing::Value
+  = help: consider importing this enum instead:
+          ort::session::builder::GraphOptimizationLevel
+help: a similar name exists in the module (notice the capitalization)
+  |
+1 - use ort::{Session, Value, GraphOptimizationLevel as OptimizationLevel};
+1 + use ort::{session, Value, GraphOptimizationLevel as OptimizationLevel};
+  |
+help: a similar name exists in the module (notice the capitalization)
+  |
+1 - use ort::{Session, Value, GraphOptimizationLevel as OptimizationLevel};
+1 + use ort::{Session, value, GraphOptimizationLevel as OptimizationLevel};
+  |
+
+error[E0412]: cannot find type `SharedState` in this scope
+  --> core/src/admin_api.rs:44:21
+   |
+44 |     pub shared: Arc<SharedState>, // <--- Shared with Proxy
+   |                     ^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+14 + use crate::state::SharedState;
+   |
+
+error[E0412]: cannot find type `WasmPluginManager` in this scope
+  --> core/src/admin_api.rs:46:34
+   |
+46 |     pub wasm_manager: Option<Arc<WasmPluginManager>>,
+   |                                  ^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+14 + use crate::wasm::WasmPluginManager;
+   |
+
+error[E0412]: cannot find type `SharedState` in this scope
+  --> core/src/admin_api.rs:55:21
+   |
+55 |         shared: Arc<SharedState>,
+   |                     ^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+14 + use crate::state::SharedState;
+   |
+
+error[E0412]: cannot find type `WasmPluginManager` in this scope
+  --> core/src/admin_api.rs:56:34
+   |
+56 |         wasm_manager: Option<Arc<WasmPluginManager>>,
+   |                                  ^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+14 + use crate::wasm::WasmPluginManager;
+   |
+
+error[E0412]: cannot find type `WasmPluginInfo` in this scope
+   --> core/src/admin_api.rs:541:37
+    |
+541 |         (StatusCode::OK, Json(Vec::<WasmPluginInfo>::new()))
+    |                                     ^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+ 14 + use crate::wasm::WasmPluginInfo;
+    |
+
+error[E0412]: cannot find type `IpAddr` in this scope
+   --> core/src/admin_api.rs:650:9
+    |
+650 |     ip: IpAddr,
+    |         ^^^^^^ not found in this scope
+    |
+help: consider importing one of these enums
+    |
+ 14 + use std::net::IpAddr;
+    |
+ 14 + use cap_std::net::IpAddr;
+    |
+
+error[E0412]: cannot find type `IpAddr` in this scope
+   --> core/src/admin_api.rs:683:28
+    |
+683 |     AxumPath(ip): AxumPath<IpAddr>,
+    |                            ^^^^^^ not found in this scope
+    |
+help: consider importing one of these enums
+    |
+ 14 + use std::net::IpAddr;
+    |
+ 14 + use cap_std::net::IpAddr;
+    |
+
+error[E0412]: cannot find type `ThreatIntelStats` in this scope
+   --> core/src/admin_api.rs:711:22
+    |
+711 |          Json(None::<ThreatIntelStats>)
+    |                      ^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this struct
+    |
+ 14 + use crate::threat_intel::client::ThreatIntelStats;
+    |
+
+error[E0412]: cannot find type `RwLock` in this scope
+  --> core/src/ml/inference.rs:82:16
+   |
+82 |     threshold: RwLock<f32>, // ✨ RWLOCK for thread-safe updates
+   |                ^^^^^^ not found in this scope
+   |
+help: consider importing one of these items
+   |
+ 1 + use std::sync::RwLock;
+   |
+ 1 + use std::sync::nonpoison::RwLock;
+   |
+ 1 + use parking_lot::RwLock;
+   |
+ 1 + use tokio::sync::RwLock;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `RwLock`
+   --> core/src/ml/inference.rs:115:24
+    |
+115 |             threshold: RwLock::new(threshold),
+    |                        ^^^^^^ use of undeclared type `RwLock`
+    |
+help: consider importing one of these items
+    |
+  1 + use std::sync::RwLock;
+    |
+  1 + use std::sync::nonpoison::RwLock;
+    |
+  1 + use parking_lot::RwLock;
+    |
+  1 + use tokio::sync::RwLock;
+    |
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/config/policy_schema.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+  --> core/src/config/mod.rs:15:5
+   |
+15 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FeedType`
+  --> core/src/config/mod.rs:23:46
+   |
+23 | use crate::threat_intel::types::{ThreatFeed, FeedType};
+   |                                              ^^^^^^^^
+
+warning: unused import: `AnomalyPrediction`
+  --> core/src/proxy/mod.rs:28:47
+   |
+28 | use crate::ml::inference::{MLInferenceEngine, AnomalyPrediction};
+   |                                               ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Ordering`
+ --> core/src/state.rs:2:37
+  |
+2 | use std::sync::atomic::{AtomicBool, Ordering};
+  |                                     ^^^^^^^^
+
+warning: unused import: `std::time::SystemTime`
+ --> core/src/state.rs:5:5
+  |
+5 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::time::interval`
+ --> core/src/health.rs:6:5
+  |
+6 | use tokio::time::interval;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `debug`
+ --> core/src/health.rs:7:15
+  |
+7 | use tracing::{debug, info, warn};
+  |               ^^^^^
+
+warning: unused imports: `Counter` and `register_counter`
+  --> core/src/metrics.rs:10:11
+   |
+10 |     opts, register_counter, register_histogram, register_int_counter,
+   |           ^^^^^^^^^^^^^^^^
+11 |     Counter, Histogram, IntCounter,
+   |     ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/telemetry.rs:5:5
+  |
+5 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Mutex`
+  --> core/src/telemetry.rs:11:5
+   |
+11 | use std::sync::Mutex;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `serde_json::json`
+  --> core/src/telemetry.rs:13:5
+   |
+13 | use serde_json::json;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `FeatureVector`
+ --> core/src/rules/engine.rs:7:45
+  |
+7 | use crate::ml::features::{extract_features, FeatureVector};
+  |                                             ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> core/src/rules/engine.rs:13:5
+   |
+13 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/rules/loader.rs:2:14
+  |
+2 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> core/src/rules/operators.rs:2:5
+  |
+2 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused imports: `alpha1`, `alphanumeric1`, `many0`, `map_res`, `multispace0`, `recognize`, `separated_pair`, `take_while`, and `tuple`
+  --> core/src/rules/parser.rs:8:58
+   |
+ 8 |     bytes::complete::{escaped, is_not, tag, tag_no_case, take_while, take_while1},
+   |                                                          ^^^^^^^^^^
+ 9 |     character::complete::{alpha1, alphanumeric1, char, digit1, multispace0, multispace1, space0},
+   |                           ^^^^^^  ^^^^^^^^^^^^^                ^^^^^^^^^^^
+10 |     combinator::{map, map_res, opt, recognize, value},
+   |                       ^^^^^^^       ^^^^^^^^^
+11 |     multi::{many0, separated_list0, separated_list1},
+   |             ^^^^^
+12 |     sequence::{delimited, pair, preceded, separated_pair, terminated, tuple},
+   |                                           ^^^^^^^^^^^^^^              ^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/rules/variables.rs:2:5
+  |
+2 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `ScalerError`
+ --> core/src/ml/inference.rs:5:41
+  |
+5 | use crate::ml::scaler::{ScalerMetadata, ScalerError};
+  |                                         ^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> core/src/wasm/mod.rs:4:5
+  |
+4 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `warn`
+ --> core/src/wasm/mod.rs:5:24
+  |
+5 | use log::{info, error, warn};
+  |                        ^^^^
+
+warning: unused import: `Config as NotifyConfig`
+ --> core/src/wasm/mod.rs:6:58
+  |
+6 | use notify::{Watcher, RecursiveMode, RecommendedWatcher, Config as NotifyConfig};
+  |                                                          ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/wasm/mod.rs:8:22
+  |
+8 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/wasm/runtime.rs:4:5
+  |
+4 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow`
+ --> core/src/ebpf/noop.rs:3:22
+  |
+3 | use anyhow::{Result, anyhow};
+  |                      ^^^^^^
+
+warning: unused import: `std::time::Duration as StdDuration`
+ --> core/src/threat_intel/client.rs:9:5
+  |
+9 | use std::time::Duration as StdDuration; // Keep std duration for sleep/interval if needed, but here mostly logic
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/threat_intel/types.rs:4:5
+  |
+4 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `header`
+ --> core/src/threat_intel/abuseipdb.rs:1:23
+  |
+1 | use reqwest::{Client, header};
+  |                       ^^^^^^
+
+warning: unused import: `Serialize`
+ --> core/src/threat_intel/abuseipdb.rs:2:26
+  |
+2 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: unused import: `FileSecurityChecks`
+ --> core/src/parser/body.rs:3:48
+  |
+3 |     validate_file_upload, validate_form_field, FileSecurityChecks,
+  |                                                ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `info`
+  --> core/src/parser/body.rs:12:28
+   |
+12 | use tracing::{debug, warn, info};
+   |                            ^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/parser/context.rs:2:5
+  |
+2 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `InspectionMetadata`
+ --> core/src/parser/http.rs:2:63
+  |
+2 | use crate::parser::context::{RequestContext, TransformedData, InspectionMetadata};
+  |                                                               ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/parser/http.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `AsyncCommands`
+ --> core/src/ratelimit/distributed.rs:2:13
+  |
+2 | use redis::{AsyncCommands, Script};
+  |             ^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ratelimit/distributed.rs:3:22
+  |
+3 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/traffic_stats.rs:4:5
+  |
+4 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+error[E0282]: type annotations needed
+   --> core/src/admin_api.rs:551:9
+    |
+551 |     let manager = match &state.wasm_manager {
+    |         ^^^^^^^
+...
+608 |         let plugins_dir = manager.get_plugins_dir();
+    |                           ------- type must be known at this point
+    |
+help: consider giving `manager` an explicit type
+    |
+551 |     let manager: /* Type */ = match &state.wasm_manager {
+    |                ++++++++++++
+
+warning: use of deprecated method `redis::Client::get_tokio_connection_manager`: use get_connection_manager instead
+  --> core/src/ratelimit/distributed.rs:65:35
+   |
+65 |                      match client.get_tokio_connection_manager().await {
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+error[E0282]: type annotations needed
+  --> core/src/ml/inference.rs:94:23
+   |
+94 |             .map_err(|e| MLError::SessionError(e.to_string()))?
+   |                       ^                        - type must be known at this point
+   |
+help: consider giving this closure parameter an explicit type
+   |
+94 |             .map_err(|e: /* Type */| MLError::SessionError(e.to_string()))?
+   |                        ++++++++++++
+
+error[E0282]: type annotations needed
+  --> core/src/ml/inference.rs:96:23
+   |
+96 |             .map_err(|e| MLError::SessionError(e.to_string()))?
+   |                       ^                        - type must be known at this point
+   |
+help: consider giving this closure parameter an explicit type
+   |
+96 |             .map_err(|e: /* Type */| MLError::SessionError(e.to_string()))?
+   |                        ++++++++++++
+
+error[E0282]: type annotations needed
+  --> core/src/ml/inference.rs:98:23
+   |
+98 |             .map_err(|e| MLError::SessionError(e.to_string()))?
+   |                       ^                        - type must be known at this point
+   |
+help: consider giving this closure parameter an explicit type
+   |
+98 |             .map_err(|e: /* Type */| MLError::SessionError(e.to_string()))?
+   |                        ++++++++++++
+
+error[E0282]: type annotations needed
+   --> core/src/ml/inference.rs:136:23
+    |
+136 |             .map_err(|e| MLError::InferenceError(e.to_string()))?;
+    |                       ^                          - type must be known at this point
+    |
+help: consider giving this closure parameter an explicit type
+    |
+136 |             .map_err(|e: /* Type */| MLError::InferenceError(e.to_string()))?;
+    |                        ++++++++++++
+
+error[E0282]: type annotations needed
+   --> core/src/ml/inference.rs:141:23
+    |
+141 |             .map_err(|e| MLError::OutputParseError(e.to_string()))?;
+    |                       ^                            - type must be known at this point
+    |
+help: consider giving this closure parameter an explicit type
+    |
+141 |             .map_err(|e: /* Type */| MLError::OutputParseError(e.to_string()))?;
+    |                        ++++++++++++
+
+error[E0282]: type annotations needed
+   --> core/src/ml/inference.rs:150:64
+    |
+150 |         let threshold = *self.threshold.read().unwrap_or_else(|p| p.into_inner());
+    |                                                                ^  - type must be known at this point
+    |
+help: consider giving this closure parameter an explicit type
+    |
+150 |         let threshold = *self.threshold.read().unwrap_or_else(|p: /* Type */| p.into_inner());
+    |                                                                 ++++++++++++
+
+error[E0282]: type annotations needed
+   --> core/src/ml/inference.rs:169:48
+    |
+169 |         *self.threshold.read().unwrap_or_else(|p| p.into_inner())
+    |                                                ^  - type must be known at this point
+    |
+help: consider giving this closure parameter an explicit type
+    |
+169 |         *self.threshold.read().unwrap_or_else(|p: /* Type */| p.into_inner())
+    |                                                 ++++++++++++
+
+warning: unused import: `futures::stream::TryStreamExt`
+  --> core/src/parser/body.rs:13:5
+   |
+13 | use futures::stream::TryStreamExt;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `line`
+  --> core/src/rules/loader.rs:26:18
+   |
+26 |              for line in content.lines() {
+   |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_line`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `t`
+   --> core/src/rules/parser.rs:214:17
+    |
+214 |             let t = match val_str.as_str() {
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_t`
+
+warning: unused variable: `input`
+   --> core/src/rules/parser.rs:322:10
+    |
+322 |     let (input, actions) = parse_actions(input)
+    |          ^^^^^ help: if this is intentional, prefix it with an underscore: `_input`
+
+warning: unused variable: `field_name`
+ --> core/src/parser/multipart_security.rs:7:5
+  |
+7 |     field_name: &str,
+  |     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_field_name`
+
+warning: unused variable: `ja3`
+   --> core/src/botdetection/fingerprint.rs:147:13
+    |
+147 |         let ja3 = calculate_ja3_hash(tls);
+    |             ^^^ help: if this is intentional, prefix it with an underscore: `_ja3`
+
+Some errors have detailed explanations: E0282, E0412, E0432, E0433.
+For more information about an error, try `rustc --explain E0282`.
+warning: `waf-killer-core` (lib) generated 44 warnings
+error: could not compile `waf-killer-core` (lib) due to 19 previous errors; 44 warnings emitted

@@ -1,0 +1,38 @@
+package waf:plugin-api
+
+interface request {
+    // Get HTTP method (GET, POST, etc.)
+    get-method: func() -> string
+    
+    // Get request path
+    get-path: func() -> string
+    
+    // Get header value
+    get-header: func(name: string) -> option<string>
+    
+    // Get query parameter
+    get-query-param: func(name: string) -> option<string>
+    
+    // Get request body (up to 1MB)
+    get-body: func() -> list<u8>
+    
+    // Get client IP
+    get-client-ip: func() -> string
+}
+
+interface logging {
+    // Log levels: 0=debug, 1=info, 2=warn, 3=error
+    log: func(level: u32, message: string)
+}
+
+world plugin {
+    import request
+    import logging
+    export inspect: func(request-id: string) -> decision
+}
+
+enum decision {
+    continue,  // 0
+    allow,     // 1
+    block,     // 2
+}

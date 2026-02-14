@@ -1,0 +1,44 @@
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+
+# Node
+node_modules/
+dist/
+.cache/
+npm-debug.log*
+
+# Logs
+logs/
+*.log
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data
+data/temp/
+
+# Dashboard
+dashboard/node_modules/
+dashboard/.svelte-kit/
+dashboard/build/
+dashboard/package-lock.json
+
+# Stress Test (ignore if checking in from root)
+../stress_test/reports/
+../stress_test/__pycache__/
+../stress_test/*.jsonl
+../stress_test/*.json

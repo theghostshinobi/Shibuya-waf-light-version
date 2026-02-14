@@ -1,0 +1,501 @@
+warning: unused import: `std::collections::HashMap`
+ --> core/src/config/policy_schema.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+  --> core/src/config/mod.rs:15:5
+   |
+15 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FeedType`
+  --> core/src/config/mod.rs:23:46
+   |
+23 | use crate::threat_intel::types::{ThreatFeed, FeedType};
+   |                                              ^^^^^^^^
+
+warning: unused import: `AnomalyPrediction`
+  --> core/src/proxy/mod.rs:28:47
+   |
+28 | use crate::ml::inference::{MLInferenceEngine, AnomalyPrediction};
+   |                                               ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Ordering`
+ --> core/src/state.rs:2:37
+  |
+2 | use std::sync::atomic::{AtomicBool, Ordering};
+  |                                     ^^^^^^^^
+
+warning: unused import: `std::time::SystemTime`
+ --> core/src/state.rs:5:5
+  |
+5 | use std::time::SystemTime;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::time::interval`
+ --> core/src/health.rs:6:5
+  |
+6 | use tokio::time::interval;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `debug`
+ --> core/src/health.rs:7:15
+  |
+7 | use tracing::{debug, info, warn};
+  |               ^^^^^
+
+warning: unused imports: `Counter` and `register_counter`
+  --> core/src/metrics.rs:10:11
+   |
+10 |     opts, register_counter, register_histogram, register_int_counter,
+   |           ^^^^^^^^^^^^^^^^
+11 |     Counter, Histogram, IntCounter,
+   |     ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/telemetry.rs:5:5
+  |
+5 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Mutex`
+  --> core/src/telemetry.rs:11:5
+   |
+11 | use std::sync::Mutex;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `serde_json::json`
+  --> core/src/telemetry.rs:13:5
+   |
+13 | use serde_json::json;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `RequestLog` and `ShadowReport`
+  --> core/src/admin_api.rs:39:33
+   |
+39 | use crate::state::{SharedState, RequestLog, ShadowReport};
+   |                                 ^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `FeatureVector`
+ --> core/src/rules/engine.rs:7:45
+  |
+7 | use crate::ml::features::{extract_features, FeatureVector};
+  |                                             ^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> core/src/rules/engine.rs:13:5
+   |
+13 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/rules/loader.rs:2:14
+  |
+2 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+
+warning: unused import: `std::fmt`
+ --> core/src/rules/operators.rs:2:5
+  |
+2 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused imports: `alpha1`, `alphanumeric1`, `many0`, `map_res`, `multispace0`, `recognize`, `separated_pair`, `take_while`, and `tuple`
+  --> core/src/rules/parser.rs:8:58
+   |
+ 8 |     bytes::complete::{escaped, is_not, tag, tag_no_case, take_while, take_while1},
+   |                                                          ^^^^^^^^^^
+ 9 |     character::complete::{alpha1, alphanumeric1, char, digit1, multispace0, multispace1, space0},
+   |                           ^^^^^^  ^^^^^^^^^^^^^                ^^^^^^^^^^^
+10 |     combinator::{map, map_res, opt, recognize, value},
+   |                       ^^^^^^^       ^^^^^^^^^
+11 |     multi::{many0, separated_list0, separated_list1},
+   |             ^^^^^
+12 |     sequence::{delimited, pair, preceded, separated_pair, terminated, tuple},
+   |                                           ^^^^^^^^^^^^^^              ^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/rules/variables.rs:2:5
+  |
+2 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ml/inference.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `Value`
+ --> core/src/ml/inference.rs:4:21
+  |
+4 |     value::{Tensor, Value},
+  |                     ^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/ml/inference.rs:8:5
+  |
+8 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TrafficStats` and `extract_features`
+  --> core/src/ml/inference.rs:10:27
+   |
+10 | use crate::ml::features::{extract_features, TrafficStats};
+   |                           ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `crate::parser::context::RequestContext`
+  --> core/src/ml/inference.rs:11:5
+   |
+11 | use crate::parser::context::RequestContext;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `ScalerError`
+  --> core/src/ml/inference.rs:12:41
+   |
+12 | use crate::ml::scaler::{ScalerMetadata, ScalerError};
+   |                                         ^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> core/src/wasm/mod.rs:4:5
+  |
+4 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `warn`
+ --> core/src/wasm/mod.rs:5:24
+  |
+5 | use log::{info, error, warn};
+  |                        ^^^^
+
+warning: unused import: `Config as NotifyConfig`
+ --> core/src/wasm/mod.rs:6:58
+  |
+6 | use notify::{Watcher, RecursiveMode, RecommendedWatcher, Config as NotifyConfig};
+  |                                                          ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/wasm/mod.rs:8:22
+  |
+8 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/src/wasm/runtime.rs:4:5
+  |
+4 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow`
+ --> core/src/ebpf/noop.rs:3:22
+  |
+3 | use anyhow::{Result, anyhow};
+  |                      ^^^^^^
+
+warning: unused import: `std::time::Duration as StdDuration`
+ --> core/src/threat_intel/client.rs:9:5
+  |
+9 | use std::time::Duration as StdDuration; // Keep std duration for sleep/interval if needed, but here mostly logic
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `thiserror::Error`
+ --> core/src/threat_intel/types.rs:4:5
+  |
+4 | use thiserror::Error;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `header`
+ --> core/src/threat_intel/abuseipdb.rs:1:23
+  |
+1 | use reqwest::{Client, header};
+  |                       ^^^^^^
+
+warning: unused import: `Serialize`
+ --> core/src/threat_intel/abuseipdb.rs:2:26
+  |
+2 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: unused import: `FileSecurityChecks`
+ --> core/src/parser/body.rs:3:48
+  |
+3 |     validate_file_upload, validate_form_field, FileSecurityChecks,
+  |                                                ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `info`
+  --> core/src/parser/body.rs:12:28
+   |
+12 | use tracing::{debug, warn, info};
+   |                            ^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/parser/context.rs:2:5
+  |
+2 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `InspectionMetadata`
+ --> core/src/parser/http.rs:2:63
+  |
+2 | use crate::parser::context::{RequestContext, TransformedData, InspectionMetadata};
+  |                                                               ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/src/parser/http.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `AsyncCommands`
+ --> core/src/ratelimit/distributed.rs:2:13
+  |
+2 | use redis::{AsyncCommands, Script};
+  |             ^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> core/src/ratelimit/distributed.rs:3:22
+  |
+3 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `std::net::IpAddr`
+ --> core/src/traffic_stats.rs:4:5
+  |
+4 | use std::net::IpAddr;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: use of deprecated method `redis::Client::get_tokio_connection_manager`: use get_connection_manager instead
+  --> core/src/ratelimit/distributed.rs:65:35
+   |
+65 |                      match client.get_tokio_connection_manager().await {
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+
+warning: unused import: `futures::stream::TryStreamExt`
+  --> core/src/parser/body.rs:13:5
+   |
+13 | use futures::stream::TryStreamExt;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `line`
+  --> core/src/rules/loader.rs:26:18
+   |
+26 |              for line in content.lines() {
+   |                  ^^^^ help: if this is intentional, prefix it with an underscore: `_line`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `t`
+   --> core/src/rules/parser.rs:214:17
+    |
+214 |             let t = match val_str.as_str() {
+    |                 ^ help: if this is intentional, prefix it with an underscore: `_t`
+
+warning: unused variable: `input`
+   --> core/src/rules/parser.rs:322:10
+    |
+322 |     let (input, actions) = parse_actions(input)
+    |          ^^^^^ help: if this is intentional, prefix it with an underscore: `_input`
+
+warning: unused variable: `field_name`
+ --> core/src/parser/multipart_security.rs:7:5
+  |
+7 |     field_name: &str,
+  |     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_field_name`
+
+warning: unused variable: `ja3`
+   --> core/src/botdetection/fingerprint.rs:147:13
+    |
+147 |         let ja3 = calculate_ja3_hash(tls);
+    |             ^^^ help: if this is intentional, prefix it with an underscore: `_ja3`
+
+warning: fields `health_check_url`, `check_interval`, and `check_timeout` are never read
+  --> core/src/health.rs:14:5
+   |
+10 | pub struct HealthMonitor {
+   |            ------------- fields in this struct
+...
+14 |     health_check_url: String,
+   |     ^^^^^^^^^^^^^^^^
+15 |     check_interval: Duration,
+   |     ^^^^^^^^^^^^^^
+16 |     check_timeout: Duration,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `watcher` is never read
+  --> core/src/wasm/mod.rs:20:5
+   |
+17 | pub struct WasmPluginManager {
+   |            ----------------- field in this struct
+...
+20 |     watcher: Option<RecommendedWatcher>,
+   |     ^^^^^^^
+
+warning: field `interface` is never read
+  --> core/src/ebpf/noop.rs:13:5
+   |
+12 | pub struct EBPFManager {
+   |            ----------- field in this struct
+13 |     interface: String,
+   |     ^^^^^^^^^
+
+warning: multiple fields are never read
+  --> core/src/threat_intel/abuseipdb.rs:23:5
+   |
+22 | struct AbuseIPDBData {
+   |        ------------- fields in this struct
+23 |     ip_address: String,
+   |     ^^^^^^^^^^
+24 |     is_public: bool,
+   |     ^^^^^^^^^
+25 |     ip_version: u8,
+   |     ^^^^^^^^^^
+26 |     is_whitelisted: bool,
+   |     ^^^^^^^^^^^^^^
+27 |     abuse_confidence_score: u8,
+28 |     country_code: Option<String>,
+   |     ^^^^^^^^^^^^
+29 |     usage_type: Option<String>,
+30 |     isp: Option<String>,
+   |     ^^^
+31 |     domain: Option<String>,
+   |     ^^^^^^
+32 |     hostnames: Vec<String>,
+   |     ^^^^^^^^^
+33 |     is_tor: bool,
+34 |     total_reports: u32,
+   |     ^^^^^^^^^^^^^
+35 |     num_distinct_users: u32,
+   |     ^^^^^^^^^^^^^^^^^^
+36 |     last_reported_at: Option<String>,
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: `AbuseIPDBData` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `meta` is never read
+  --> core/src/threat_intel/abuseipdb.rs:41:5
+   |
+40 | struct AbuseIPDBBlacklistResponse {
+   |        -------------------------- field in this struct
+41 |     meta: BlacklistMeta,
+   |     ^^^^
+   |
+   = note: `AbuseIPDBBlacklistResponse` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `generated_at` is never read
+  --> core/src/threat_intel/abuseipdb.rs:48:5
+   |
+47 | struct BlacklistMeta {
+   |        ------------- field in this struct
+48 |     generated_at: String,
+   |     ^^^^^^^^^^^^
+   |
+   = note: `BlacklistMeta` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `waf-killer-core` (lib) generated 56 warnings (run `cargo fix --lib -p waf-killer-core` to apply 48 suggestions)
+warning: unused import: `pingora::services::listening::Service`
+  --> core/src/main.rs:16:5
+   |
+16 | use pingora::services::listening::Service;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `LogFormat`
+  --> core/src/main.rs:18:39
+   |
+18 | use waf_killer_core::config::{Config, LogFormat, DetectionMode};
+   |                                       ^^^^^^^^^
+
+warning: `waf-killer-core` (bin "waf-killer-core") generated 2 warnings (run `cargo fix --bin "waf-killer-core" -p waf-killer-core` to apply 2 suggestions)
+warning: unused import: `LogFormat`
+  --> core/src/main.rs:18:39
+   |
+18 | use waf_killer_core::config::{Config, LogFormat, Detectio...
+   |                                       ^^^^^^^^^
+
+warning: unused import: `AnomalyPrediction`
+ --> core/tests/ml_integration_test.rs:1:57
+  |
+1 | ...MLInferenceEngine, AnomalyPrediction};
+  |                       ^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `MlConfig`
+ --> core/tests/ml_integration_test.rs:5:39
+  |
+5 | use waf_killer_core::config::{Config, MlConfig};
+  |                                       ^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> core/tests/ml_integration_test.rs:6:5
+  |
+6 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> core/tests/ml_features_tests.rs:4:5
+  |
+4 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::thread`
+   --> core/src/botdetection/behavior.rs:165:9
+    |
+165 |     use std::thread;
+    |         ^^^^^^^^^^^
+
+warning: unused variable: `token`
+   --> core/src/botdetection/challenge.rs:205:13
+    |
+205 |         let token = generate_challenge().unwrap();
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_token`
+
+warning: `waf-killer-core` (bin "waf-killer-core" test) generated 2 warnings (1 duplicate) (run `cargo fix --bin "waf-killer-core" -p waf-killer-core --tests` to apply 1 suggestion)
+warning: `waf-killer-core` (test "ml_integration_test") generated 3 warnings (run `cargo fix --test "ml_integration_test" -p waf-killer-core` to apply 3 suggestions)
+warning: `waf-killer-core` (test "ml_features_tests") generated 1 warning (run `cargo fix --test "ml_features_tests" -p waf-killer-core` to apply 1 suggestion)
+warning: `waf-killer-core` (lib test) generated 58 warnings (56 duplicates) (run `cargo fix --lib -p waf-killer-core --tests` to apply 2 suggestions)
+   Compiling waf-killer-core v0.1.0 (/Users/ghostshinobi/Desktop/hunterz/waf-killer/core)
+error[E0603]: struct `ThreatIntelConfig` is private
+ --> core/tests/threat_intel_test.rs:1:64
+  |
+1 | use waf_killer_core::threat_intel::client::{ThreatIntelClient, ThreatIntelConfig};
+  |                                                                ^^^^^^^^^^^^^^^^^ private struct
+  |
+note: the struct `ThreatIntelConfig` is defined here
+ --> /Users/ghostshinobi/Desktop/hunterz/waf-killer/core/src/threat_intel/client.rs:5:5
+  |
+5 | use crate::config::ThreatIntelConfig;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: import `ThreatIntelConfig` directly
+  |
+1 | use waf_killer_core::threat_intel::client::{ThreatIntelClient, waf_killer_core::config::ThreatIntelConfig};
+  |                                                                +++++++++++++++++++++++++
+
+warning: unused import: `std::sync::Arc`
+ --> core/tests/threat_intel_test.rs:4:5
+  |
+4 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::time::Duration`
+ --> core/tests/threat_intel_test.rs:5:5
+  |
+5 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+warning: `waf-killer-core` (test "threat_intel_test") generated 2 warnings
+error: could not compile `waf-killer-core` (test "threat_intel_test") due to 1 previous error; 2 warnings emitted
