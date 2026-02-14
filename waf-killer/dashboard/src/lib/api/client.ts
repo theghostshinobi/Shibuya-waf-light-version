@@ -221,6 +221,26 @@ class ApiClient {
     }
 
     // ========================================
+    // Quick Setup
+    // ========================================
+
+    async quickSetup(params: { backend_url: string; security_level: 'strict' | 'moderate' | 'permissive' }): Promise<{
+        status: string;
+        waf_url: string;
+        backend_url: string;
+        security_level: string;
+        anomaly_threshold: number;
+        rules_enabled: boolean;
+        ml_enabled: boolean;
+    }> {
+        return this.fetch('/quick-setup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params),
+        });
+    }
+
+    // ========================================
     // API Protection & Config
     // ========================================
 

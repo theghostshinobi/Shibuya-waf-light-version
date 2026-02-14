@@ -1403,6 +1403,7 @@ pub fn create_admin_router(state: Arc<WafState>) -> Router {
         .route("/config/update", post(update_config_handler))
         .route("/config/rollback", post(rollback_handler))
         .route("/config/backups", get(list_backups_handler))
+        .route("/quick-setup", post(crate::quick_setup::quick_setup_handler))
         .route("/requests/:id", get(get_request_detail_handler))
         .route("/shadow/report", get(shadow_report_handler))
         .route("/shadow/promote", post(shadow_promote_handler))

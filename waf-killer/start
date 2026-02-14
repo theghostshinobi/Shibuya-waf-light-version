@@ -1,0 +1,86 @@
+#!/bin/bash
+# ══════════════════════════════════════════════
+#  SHIBUYA WAF — Start
+#  Avvia il dashboard e lo apre nel browser
+# ══════════════════════════════════════════════
+set -e
+
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+PORT=5173
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+DASHBOARD_DIR="$SCRIPT_DIR/waf-killer/dashboard"
+
+echo -e "${CYAN}"
+echo "  ╔═══════════════════════════════════════╗"
+echo "  ║         SHIBUYA WAF — Start           ║"
+echo "  ╚═══════════════════════════════════════╝"
+echo -e "${NC}"
+
+# ── Controlla che npm sia installato ──
+if ! command -v npm &>/dev/null; then
+    echo -e "${RED}✗ npm non trovato. Esegui prima: ./setup${NC}"
+    exit 1
+fi
+
+# ── Controlla che node_modules esista ──
+if [ ! -d "$DASHBOARD_DIR/node_modules" ]; then
+    echo -e "${RED}✗ Dipendenze non installate. Esegui prima: ./setup${NC}"
+    exit 1
+fi
+
+# ── Libera la porta se occupata ──
+if lsof -i :$PORT &>/dev/null; then
+    echo -e "  ⚠ Porta $PORT occupata, provo la $((PORT + 1))..."
+    PORT=$((PORT + 1))
+fi
+
+# ── Avvia il dashboard in background ──
+echo -e "${CYAN}[1/2]${NC} Avvio SHIBUYA Dashboard sulla porta $PORT..."
+cd "$DASHBOARD_DIR"
+npm run dev -- --port $PORT &
+DEV_PID=$!
+
+# ── Aspetta che il server sia pronto ──
+echo -e "${CYAN}[2/2]${NC} Attendo avvio server..."
+READY=false
+for i in $(seq 1 15); do
+    sleep 1
+    if curl -s "http://localhost:$PORT" >/dev/null 2>&1; then
+        READY=true
+        break
+    fi
+    # Vite potrebbe scegliere un'altra porta
+    NEXT_PORT=$((PORT + 1))
+    if curl -s "http://localhost:$NEXT_PORT" >/dev/null 2>&1; then
+        PORT=$NEXT_PORT
+        READY=true
+        break
+    fi
+done
+
+if [ "$READY" = true ]; then
+    echo ""
+    echo -e "${GREEN}  ✅ Dashboard attivo su http://localhost:$PORT${NC}"
+    echo ""
+
+    # ── Apri nel browser ──
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        open "http://localhost:$PORT"
+    elif command -v xdg-open &>/dev/null; then
+        xdg-open "http://localhost:$PORT"
+    elif command -v wslview &>/dev/null; then
+        wslview "http://localhost:$PORT"
+    fi
+
+    echo -e "  Premi ${CYAN}Ctrl+C${NC} per fermare il server"
+    echo ""
+    wait $DEV_PID
+else
+    echo -e "${RED}  ✗ Timeout: il server non si è avviato in 15 secondi${NC}"
+    kill $DEV_PID 2>/dev/null
+    exit 1
+fi

@@ -10,63 +10,23 @@
     Shield,
     Brain,
     Bot,
-    Settings,
     LogOut,
-    TriangleAlert,
     Menu,
     X,
-    Ghost,
-    Bug,
-    Bandage,
-    FileText,
-    ShieldCheck,
-    Users,
-    Plus,
-    Pencil,
-    Trash2,
-    Globe,
-    Calendar,
-    CreditCard,
-    Lock,
-    Search,
-    Sliders,
-    EllipsisVertical,
-    CircleCheck,
-    CircleX,
-    CircleAlert,
-    ExternalLink,
-    BarChart3,
-    Zap,
+    Rocket,
   } from "lucide-svelte";
   import { authStore } from "$lib/stores/auth";
-  import { uiModeStore } from "$lib/stores/uiMode";
-  import ModeToggle from "$lib/components/ModeToggle.svelte";
 
-  // Full feature list
+  // Simple mode nav items
   const navItems = [
     { href: "/", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/quick-setup", label: "Quick Setup", icon: Rocket },
     { href: "/requests", label: "Requests", icon: List },
     { href: "/analytics", label: "Analytics", icon: Activity },
     { href: "/rules", label: "Rules", icon: Shield },
     { href: "/ml", label: "ML Engine", icon: Brain },
     { href: "/bot-detection", label: "Bot Detection", icon: Bot },
   ];
-
-  const advancedNavItems = [
-    { href: "/tenants", label: "Tenants", icon: Users },
-    { href: "/patches", label: "Virtual Patches", icon: Bandage },
-    { href: "/shadow", label: "Shadow API", icon: Ghost },
-    { href: "/vulnerabilities", label: "Vulnerabilities", icon: Bug },
-    { href: "/threats", label: "Threat Intel", icon: TriangleAlert },
-    { href: "/api-protection", label: "API Protection", icon: ShieldCheck },
-    { href: "/audit", label: "Audit Logs", icon: FileText },
-    { href: "/metrics", label: "Metrics", icon: BarChart3 },
-    { href: "/ebpf", label: "eBPF Kernel", icon: Zap },
-    { href: "/settings", label: "Config/Settings", icon: Settings },
-  ];
-
-  let mode: "simple" | "advanced";
-  uiModeStore.subscribe((v) => (mode = v));
 
   let isMobileMenuOpen = false;
 
@@ -131,34 +91,7 @@
           {/each}
         </div>
 
-        <!-- Always show Advanced items if mode is advanced, or perhaps we simplify and show mostly everything? 
-             User asked for "use all features possible... simple and god mode". 
-             Let's keep the toggle but make the list comprehensive in Advanced. -->
-        {#if mode === "advanced"}
-          <div class="mt-8 pt-4 border-t border-[#333]">
-            <p
-              class="px-2 mb-2 text-[11px] font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Intelligence & Ops
-            </p>
-            <div class="space-y-0.5">
-              {#each advancedNavItems as item}
-                <a
-                  href={item.href}
-                  class="nav-link group"
-                  class:active={$page.url.pathname.startsWith(item.href)}
-                >
-                  <svelte:component
-                    this={item.icon}
-                    size={16}
-                    class="nav-icon"
-                  />
-                  <span>{item.label}</span>
-                </a>
-              {/each}
-            </div>
-          </div>
-        {/if}
+
       </nav>
 
       <!-- Sidebar footer -->
@@ -180,7 +113,10 @@
       {#if isMobileMenuOpen}
         <div
           class="fixed inset-0 bg-black/80 z-40 md:hidden backdrop-blur-sm"
+          role="button"
+          tabindex="-1"
           on:click={() => (isMobileMenuOpen = false)}
+          on:keydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') isMobileMenuOpen = false; }}
         ></div>
 
         <div
@@ -232,30 +168,7 @@
                 </a>
               {/each}
 
-              {#if mode === "advanced"}
-                <div class="mt-6 pt-4 border-t border-[#333]">
-                  <p
-                    class="px-2 mb-2 text-[11px] font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Advanced
-                  </p>
-                  {#each advancedNavItems as item}
-                    <a
-                      href={item.href}
-                      class="nav-link group"
-                      class:active={$page.url.pathname.startsWith(item.href)}
-                      on:click={() => (isMobileMenuOpen = false)}
-                    >
-                      <svelte:component
-                        this={item.icon}
-                        size={16}
-                        class="nav-icon"
-                      />
-                      <span>{item.label}</span>
-                    </a>
-                  {/each}
-                </div>
-              {/if}
+
             </div>
           </nav>
         </div>
@@ -282,7 +195,6 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <ModeToggle />
 
           <!-- Status indicator -->
           <div
@@ -334,7 +246,7 @@
     background: #111;
   }
 
-  .nav-link.active .nav-icon {
+  .nav-link.active :global(.nav-icon) {
     color: #fff;
   }
 

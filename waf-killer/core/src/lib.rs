@@ -54,3 +54,4 @@ pub mod botdetection;
 pub mod traffic_stats;
 pub mod shadow;
 pub mod session;
+pub mod quick_setup;

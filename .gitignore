@@ -1,9 +1,51 @@
-*.log
-data/
-datasets/
-__pycache__/
-*.pyc
-.env
-.DS_Store
+# Models e Dataset (troppo pesanti per GitHub)
 models/
+datasets/
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# ML Models
+*.h5
+*.pkl
+*.joblib
+*.onnx
+*.pt
+*.pth
+*.bin
+
+# Logs e Reports
+*.log
+logs/
+*.json
 stress_test_report.json
+
+# File di sistema
+.DS_Store
+.env
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Backup files
+*.md.backup
+*.bak

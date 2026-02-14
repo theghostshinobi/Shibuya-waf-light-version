@@ -1,0 +1,75 @@
+#!/bin/bash
+# ══════════════════════════════════════════════
+#  SHIBUYA WAF — Setup
+#  Installa tutte le dipendenze necessarie
+# ══════════════════════════════════════════════
+set -e
+
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+echo -e "${CYAN}"
+echo "  ╔═══════════════════════════════════════╗"
+echo "  ║         SHIBUYA WAF — Setup           ║"
+echo "  ╚═══════════════════════════════════════╝"
+echo -e "${NC}"
+
+# ── 1. Controlla prerequisiti ──
+echo -e "${CYAN}[1/3]${NC} Verifico prerequisiti..."
+
+if ! command -v node &>/dev/null; then
+    echo -e "${RED}✗ Node.js non trovato. Installalo: https://nodejs.org${NC}"
+    exit 1
+fi
+echo -e "  ${GREEN}✓${NC} Node.js $(node -v)"
+
+if ! command -v npm &>/dev/null; then
+    echo -e "${RED}✗ npm non trovato.${NC}"
+    exit 1
+fi
+echo -e "  ${GREEN}✓${NC} npm $(npm -v)"
+
+if ! command -v cargo &>/dev/null; then
+    echo -e "  ⚠ Rust/Cargo non trovato — il backend non potrà essere compilato"
+    echo -e "  Installa con: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+else
+    echo -e "  ${GREEN}✓${NC} Cargo $(cargo --version | cut -d' ' -f2)"
+fi
+
+# ── 2. Installa dipendenze dashboard ──
+echo ""
+echo -e "${CYAN}[2/3]${NC} Installo dipendenze dashboard (npm)..."
+cd "$(dirname "$0")/waf-killer/dashboard"
+
+# Fix noto per @rollup/rollup-darwin-arm64
+if [ -d "node_modules" ]; then
+    echo "  Pulisco node_modules per evitare bug npm optional deps..."
+    rm -rf node_modules package-lock.json
+fi
+
+npm install --no-audit --no-fund 2>&1 | tail -5
+echo -e "  ${GREEN}✓${NC} Dipendenze dashboard installate"
+
+# ── 3. (Opzionale) Compila backend Rust ──
+echo ""
+echo -e "${CYAN}[3/3]${NC} Compilo backend Rust (può richiedere qualche minuto)..."
+cd "$(dirname "$0")/../../waf-killer/core" 2>/dev/null || cd "$(git rev-parse --show-toplevel)/waf-killer/core" 2>/dev/null || {
+    # fallback path
+    cd "$(dirname "$BASH_SOURCE")"/waf-killer/core 2>/dev/null || true
+}
+
+if command -v cargo &>/dev/null; then
+    cargo build --release 2>&1 | tail -3 && \
+        echo -e "  ${GREEN}✓${NC} Backend compilato" || \
+        echo -e "  ⚠ Build backend fallita — puoi comunque avviare solo il dashboard"
+else
+    echo -e "  ⚠ Skippato (Rust non installato)"
+fi
+
+echo ""
+echo -e "${GREEN}══════════════════════════════════════════${NC}"
+echo -e "${GREEN}  ✅ Setup completato!${NC}"
+echo -e "${GREEN}  Ora esegui: ./start${NC}"
+echo -e "${GREEN}══════════════════════════════════════════${NC}"
