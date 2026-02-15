@@ -657,46 +657,96 @@ We offer a bug bounty program with rewards up to $5,000 for critical WAF bypasse
 
 **Document generated February 14, 2026 — SHIBUYA WAF v1.0**
 
-Metric	Value
-Total Tests	51 (50 attacks + 1 safe baseline)
-Passed	51 / 51
-Failed	0
-Detection Rate	100.0%
-WAF Block Rate	96.1% (49 blocked, 2 allowed)
-Full OWASP Top 10 (2021) Coverage
-Category	Tests	Attacks	Result
-A01: Broken Access Control	1–4	Path traversal, forced browsing, dotfile	✅ 4/4
-A02: Cryptographic Failures	5–7	Password, API key, token in URL	✅ 3/3
-A03: Injection (SQLi)	8–13	OR 1=1, UNION, blind, stacked, login bypass, NoSQL $ne	✅ 6/6
-A03: Injection (XSS)	14–18	script, img onerror, onmouseover, javascript:, SVG onload	✅ 5/5
-A03: Injection (CMDi)	19–21	ping, exec, PowerShell	✅ 3/3
-A04: Insecure Design	22–24	__proto__ pollution, mass assignment, negative qty	✅ 3/3
-A05: Security Misconfig	25–28	Nikto, sqlmap, debug, server-status	✅ 4/4
-A06: Vulnerable Components	29–32	Log4Shell, Shellshock, Spring4Shell, WP plugin	✅ 4/4
-A07: Auth Failures	33–38	Open redirect ×2, brute force burst (4 attempts)	✅ 6/6
-A08: Data Integrity	39–41	PHP deser, proto pollution, Java deser (rO0ABX)	✅ 3/3
-A09: Logging & Monitoring	42–44	CRLF, log injection, HTTP response splitting	✅ 3/3
-A10: SSRF	45–47	AWS metadata, internal net, file:// protocol	✅ 3/3
-MITRE ATT&CK Techniques
-Technique	Test	Attack	Result
-T1190: Exploit Public-Facing App	48	Shellshock via User-Agent	✅ BLOCK
-T1595: Active Reconnaissance	49	WP xmlrpc.php fingerprinting	✅ BLOCK
-T1059: Command & Scripting	50	Base64-encoded bash injection	✅ BLOCK
-WAF Rules (16 total)
-Rule ID	Category	OWASP	Severity
-CRS-942100	SQL Injection + NoSQL	A03	CRITICAL
-CRS-941100	XSS	A03	HIGH
-CRS-932100	Command Injection	A03	CRITICAL
-CRS-930100	Path Traversal	A01	HIGH
-CRS-930110	Broken Access Control	A01	MEDIUM
-CRS-934100	SSRF	A10	CRITICAL
-CRS-934110	Open Redirect	A07	MEDIUM
-CRS-921100	CRLF/Header Injection	A09	HIGH
-CRS-920100	Sensitive Data Exposure	A02	MEDIUM
-CRS-944100	Deserialization	A08	CRITICAL
-RATE-001	Rate Limiting	A04	MEDIUM
-CRS-920200	Security Misconfiguration	A05	MEDIUM
-CRS-944200	Vulnerable Components	A06	CRITICAL
-CRS-920300	Brute Force	A07	HIGH
-MITRE-T1190	Exploit Public App	MITRE	CRITICAL
-MITRE-T1595	Active Reconnaissance	MITRE	MEDIUM
+# WAF Security Test Report
+
+
+
+
+
+
+## 📊 Test Summary
+
+| Metric | Value |
+|--------|-------|
+| **Total Tests** | 51 (50 attacks + 1 safe baseline) |
+| **Passed** | 51 / 51 |
+| **Failed** | 0 |
+| **Detection Rate** | 100.0% |
+| **WAF Block Rate** | 96.1% (49 blocked, 2 allowed) |
+
+***
+
+## 🛡️ Full OWASP Top 10 (2021) Coverage
+
+| Category | Tests | Attacks | Result |
+|----------|-------|---------|--------|
+| **A01: Broken Access Control** | 1–4 | Path traversal, forced browsing, dotfile | ✅ 4/4 |
+| **A02: Cryptographic Failures** | 5–7 | Password, API key, token in URL | ✅ 3/3 |
+| **A03: Injection (SQLi)** | 8–13 | OR 1=1, UNION, blind, stacked, login bypass, NoSQL $ne | ✅ 6/6 |
+| **A03: Injection (XSS)** | 14–18 | script, img onerror, onmouseover, javascript:, SVG onload | ✅ 5/5 |
+| **A03: Injection (CMDi)** | 19–21 | ping, exec, PowerShell | ✅ 3/3 |
+| **A04: Insecure Design** | 22–24 | `__proto__` pollution, mass assignment, negative qty | ✅ 3/3 |
+| **A05: Security Misconfiguration** | 25–28 | Nikto, sqlmap, debug, server-status | ✅ 4/4 |
+| **A06: Vulnerable Components** | 29–32 | Log4Shell, Shellshock, Spring4Shell, WP plugin | ✅ 4/4 |
+| **A07: Authentication Failures** | 33–38 | Open redirect ×2, brute force burst (4 attempts) | ✅ 6/6 |
+| **A08: Software & Data Integrity** | 39–41 | PHP deser, proto pollution, Java deser (rO0ABX) | ✅ 3/3 |
+| **A09: Logging & Monitoring Failures** | 42–44 | CRLF, log injection, HTTP response splitting | ✅ 3/3 |
+| **A10: Server-Side Request Forgery** | 45–47 | AWS metadata, internal net, file:// protocol | ✅ 3/3 |
+
+***
+
+## 🎯 MITRE ATT&CK Techniques
+
+| Technique | Test | Attack | Result |
+|-----------|------|--------|--------|
+| **T1190: Exploit Public-Facing Application** | 48 | Shellshock via User-Agent | ✅ BLOCK |
+| **T1595: Active Reconnaissance** | 49 | WP xmlrpc.php fingerprinting | ✅ BLOCK |
+| **T1059: Command & Scripting Interpreter** | 50 | Base64-encoded bash injection | ✅ BLOCK |
+
+***
+
+## 🔒 WAF Rules (16 total)
+
+| Rule ID | Category | OWASP | Severity |
+|---------|----------|-------|----------|
+| `CRS-942100` | SQL Injection + NoSQL | A03 | 🔴 CRITICAL |
+| `CRS-941100` | XSS | A03 | 🟠 HIGH |
+| `CRS-932100` | Command Injection | A03 | 🔴 CRITICAL |
+| `CRS-930100` | Path Traversal | A01 | 🟠 HIGH |
+| `CRS-930110` | Broken Access Control | A01 | 🟡 MEDIUM |
+| `CRS-934100` | SSRF | A10 | 🔴 CRITICAL |
+| `CRS-934110` | Open Redirect | A07 | 🟡 MEDIUM |
+| `CRS-921100` | CRLF/Header Injection | A09 | 🟠 HIGH |
+| `CRS-920100` | Sensitive Data Exposure | A02 | 🟡 MEDIUM |
+| `CRS-944100` | Deserialization | A08 | 🔴 CRITICAL |
+| `RATE-001` | Rate Limiting | A04 | 🟡 MEDIUM |
+| `CRS-920200` | Security Misconfiguration | A05 | 🟡 MEDIUM |
+| `CRS-944200` | Vulnerable Components | A06 | 🔴 CRITICAL |
+| `CRS-920300` | Brute Force | A07 | 🟠 HIGH |
+| `MITRE-T1190` | Exploit Public-Facing App | MITRE | 🔴 CRITICAL |
+| `MITRE-T1595` | Active Reconnaissance | MITRE | 🟡 MEDIUM |
+
+***
+
+## 🚀 Features
+
+- ✅ **100% detection rate** across all OWASP Top 10 categories
+- 🛡️ **96.1% block rate** with intelligent allow-listing
+- 🎯 **MITRE ATT&CK** technique coverage
+- 📈 **Real-time monitoring** and logging
+- 🔧 **Customizable rules** engine
+- ⚡ **Low latency** performance
+
+***
+
+## 📝 License
+
+[Your License Here]
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+***
+
+**Made with ❤️ for secure web applications**
