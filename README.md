@@ -630,15 +630,7 @@ Some configurations can be overridden with environment variables:
 |---------|------|---------------|
 | GitHub Issues | github.com/your-org/shibuya-waf/issues | 24-48h |
 | Discord Server | discord.gg/shibuya-waf | Business hours |
-| GitHub Discussions | github.com/your-org/shibuya-waf/discussions | 48-72h |
 
-### Professional Support
-
-| Tier | Price | SLA | Includes |
-|------|-------|-----|----------|
-| Community | Free | Best-effort | Access to issues and community |
-| Pro | €49-99/month | 24h response | Priority support, updated rules, optimized ML models |
-| Enterprise | Custom | 4h response, 99.9% uptime | Dedicated support, SSO/SAML, compliance reports, custom integrations |
 
 ### Bug Reporting
 
