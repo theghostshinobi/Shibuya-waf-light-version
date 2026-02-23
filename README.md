@@ -653,9 +653,6 @@ We offer a bug bounty program with rewards up to $5,000 for critical WAF bypasse
 
 
 
-
-
-
 ## 📊 Test Summary
 
 | Metric | Value |
@@ -729,16 +726,157 @@ We offer a bug bounty program with rewards up to $5,000 for critical WAF bypasse
 - 🔧 **Customizable rules** engine
 - ⚡ **Low latency** performance
 
-***
+# 渋 SHIBUYA WAF — ENTERPRISE EDITION
 
-## 📝 License
+**Version:** 1.0 (Full Source Code)  
+**Architecture:** Rust (Pingora) + eBPF + Machine Learning + SvelteKit  
+**License:** Commercial / Self-Hosted (No Resale)
 
-[Your License Here]
+---
 
-## 🤝 Contributing
+## Welcome to the Beast.
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Thank you for your purchase. You now possess the complete source code for **SHIBUYA WAF**, a next-generation Web Application Firewall designed for extreme performance and zero-day threat detection. 
 
+By bypassing traditional SaaS subscriptions, you now have 100% control over your data, your traffic, and your security infrastructure.
+
+---
+
+## 📑 Table of Contents
+1. [System Requirements](#1-system-requirements)
+2. [Quick Start Deployment](#2-quick-start-deployment)
+3. [Accessing the Dashboard](#3-accessing-the-dashboard)
+4. [Project Ashigaru: The Vulnerable Lab](#4-project-ashigaru-the-vulnerable-lab)
+5. [Official Security Benchmark](#5-official-security-benchmark)
+6. [Troubleshooting & FAQ](#6-troubleshooting--faq)
+
+---
+
+## 1. System Requirements
+
+For a production environment, ensure your system meets the following specifications:
+
+* **OS:** Linux (Ubuntu 20.04+, Debian 11+, CentOS 8+) is highly recommended for eBPF kernel features. macOS is supported for development without eBPF.
+* **Hardware:** 4+ CPU Cores, 2GB+ RAM.
+* **Dependencies:** * Rust 1.75+ (for backend compilation)
+    * Node.js v18+ & npm v8+ (for SvelteKit dashboard)
+    * Docker & Docker Compose (for the Ashigaru Lab)
+
+---
+
+## 2. Quick Start Deployment
+
+We have automated the heavy lifting. To build the Rust engine, download the ML models, and install the frontend dependencies, simply run the included scripts.
+
+Open your terminal in the project root and execute:
+
+```bash
+# 1. Make scripts executable (if they aren't already)
+chmod +x setup start shibuya
+
+# 2. Run the initialization wizard
+./setup
+
+# 3. Boot the WAF Engine and the Dashboard
+./start
+
+```
+
+*The `./start` script will automatically launch the Rust Proxy on port `8080`, the Admin API on `9090`, and the SvelteKit UI on `5173`.*
+
+---
+
+## 3. Accessing the Dashboard
+
+Once the services are running, open your browser and navigate to the SHIBUYA Command Center:
+
+👉 **URL:** `http://localhost:5173`
+
+### Default Administrator Credentials
+
+* **Username:** `admin`
+* **Password:** `BrutalDevAccess2026!`
+
+> **⚠️ CRITICAL SECURITY NOTE:** Change this password immediately upon your first login via the Settings panel. If deploying to production, ensure you generate a secure `WAF_ADMIN_TOKEN` in your `config/waf.yaml` file.
+
+---
+
+## 4. Project Ashigaru: The Vulnerable Lab
+
+Your purchase includes **Ashigaru**, an isolated Docker environment featuring 6 deliberately vulnerable applications (SQLi, React2Shell RCE, LLM Prompt Injection) and an automated Red Team Bot. This is your personal training ground to test the WAF.
+
+### How to boot the lab:
+
+```bash
+cd ashigaru
+docker-compose up -d
+
+```
+
+### Lab Endpoints:
+
+* Gateway (REST): `http://localhost:3000`
+* Frontend (React SSR): `http://localhost:4000`
+* GraphQL Engine: `http://localhost:4001`
+* AI Search (Flask): `http://localhost:5001`
+* Legacy PHP: `http://localhost:8888`
+
+### Run the Automated Attack Bot:
+
+To verify SHIBUYA's defensive capabilities against 100+ payloads in real-time:
+
+```bash
+cd ashigaru/redteam
+python3 ashigaru_redteam.py --target http://localhost:8080 --cycles 1
+
+```
+
+> **⚠️ WARNING:** NEVER expose the Ashigaru lab on a public IP or production network. It is completely unsecured by design.
+
+---
+
+## 5. Official Security Benchmark
+
+SHIBUYA WAF has been rigorously tested against the OWASP Top 10 (2021) and advanced MITRE ATT&CK techniques.
+
+| Metric | Value |
+| --- | --- |
+| **Total Tests** | 51 (50 attacks + 1 safe baseline) |
+| **Detection Rate** | 100.0% |
+| **WAF Block Rate** | 96.1% (49 blocked, 2 allowed) |
+
+### Attack Vectors Neutralized:
+
+* **A01: Broken Access Control** (Path traversal, forced browsing) — ✅ 4/4 Blocked
+* **A03: Injection** (SQLi, OR 1=1, UNION, blind, stacked) — ✅ 6/6 Blocked
+* **A03: XSS** (script, img onerror, SVG onload) — ✅ 5/5 Blocked
+* **A03: Command Injection** (ping, exec, PowerShell) — ✅ 3/3 Blocked
+* **A06: Vulnerable Components** (Log4Shell, Shellshock) — ✅ 4/4 Blocked
+* **A10: SSRF** (AWS metadata, internal net) — ✅ 3/3 Blocked
+
+---
+
+## 6. Troubleshooting & FAQ
+
+**Q: The Rust compilation fails during `./setup`.**
+A: Ensure you have the latest stable Rust toolchain. Run `rustup update stable` and try again. If you are on Ubuntu/Debian, ensure `build-essential` and `libssl-dev` are installed (`sudo apt install build-essential libssl-dev`).
+
+**Q: I get a "Permission Denied" error when enabling the eBPF module.**
+A: eBPF requires root privileges to attach to the kernel network stack. If you intend to use eBPF filtering, you must run the Rust backend with elevated privileges (e.g., `sudo ./target/release/waf-killer`).
+
+**Q: "Address already in use" error on startup.**
+A: SHIBUYA uses ports `8080`, `8443`, `9090`, and `5173`. Make sure no other services (like Apache, Nginx, or another Node instance) are occupying these ports. You can change the WAF ports in `config/waf.yaml`.
+
+**Q: The Machine Learning model is blocking legitimate traffic (False Positives).**
+A: Navigate to the `ML Engine` tab in your Dashboard. You can lower the Anomaly Threshold (e.g., from `0.7` to `0.85`), or use the **Pending Reviews** section to flag the specific request as a "False Positive" so the model recalibrates automatically.
+
+---
+
+*Built with precision. Defend your infrastructure.*
+
+```
+
+```
 ***
 
 **Made with ❤️ for secure web applications**
