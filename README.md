@@ -1,4 +1,4 @@
-# SHIBUYA WAF
+<img width="1470" height="844" alt="Screenshot 2026-02-24 alle 08 33 19" src="https://github.com/user-attachments/assets/2b4fe1ba-0bf6-41c9-a7e5-feaedf55eeb0" /><img width="1456" height="821" alt="Screenshot 2026-02-24 alle 08 34 07" src="https://github.com/user-attachments/assets/75208341-785d-40ab-a636-9becb0983b7c" /># SHIBUYA WAF
 
 **Version:** 1.0  
 **Release Date:** February 14, 2026  
@@ -874,9 +874,53 @@ A: Navigate to the `ML Engine` tab in your Dashboard. You can lower the Anomaly 
 
 *Built with precision. Defend your infrastructure.*
 
-```
 
-```
+<img width="775" height="417" alt="Screenshot 2026-02-24 alle 08 33 12" src="https://github.com/user-attachments/assets/f0af00fd-a977-4a01-ad8f-457d298ea8bf" />
+
+<img width="1470" height="844" alt="Screenshot 2026-02-24 alle 08 33 19" src="https://github.com/user-attachments/assets/fb508ca9-1dd8-4a8d-8f87-cca74cc140ca" />
+
+<img width="1453" height="818" alt="Screenshot 2026-02-24 alle 08 33 28" src="https://github.com/user-attachments/assets/bca5c531-3d42-47b3-98be-5b83fe5442cc" />
+
+<img width="1461" height="834" alt="Screenshot 2026-02-24 alle 08 33 35" src="https://github.com/user-attachments/assets/512bd6cf-e6ce-48c2-b3df-274ea10c823a" />
+
+<img width="1465" height="832" alt="Screenshot 2026-02-24 alle 08 33 42" src="https://github.com/user-attachments/assets/1a541562-f3d6-49bd-8987-73995f11765f" />
+
+<img width="1468" height="839" alt="Screenshot 2026-02-24 alle 08 34 01" src="https://github.com/user-attachments/assets/81ffbb46-a2d0-4f16-b463-f967330bd481" />
+
+<img width="1456" height="821" alt="Screenshot 2026-02-24 alle 08 34 07" src="https://github.com/user-attachments/assets/774fea77-cbfd-42b1-8c8b-216f263d1e68" />
+
+<img width="1470" height="846" alt="Screenshot 2026-02-24 alle 08 34 12" src="https://github.com/user-attachments/assets/518ffb52-5b6a-41af-91bf-f1fbfee59ebc" />
+
+<img width="1470" height="843" alt="Screenshot 2026-02-24 alle 08 34 19" src="https://github.com/user-attachments/assets/f7cf0a82-a2f7-4bb9-8373-099369fe29b7" />
+
+<img width="1470" height="840" alt="Screenshot 2026-02-24 alle 08 34 24" src="https://github.com/user-attachments/assets/a2a31c58-a363-4b78-9f81-841feb9bdfd1" />
+
+<img width="1470" height="850" alt="Screenshot 2026-02-24 alle 08 34 34" src="https://github.com/user-attachments/assets/eb17ffd9-4f8a-4916-8312-a6612cb42aba" />
+
+<img width="1470" height="843" alt="Screenshot 2026-02-24 alle 08 34 45" src="https://github.com/user-attachments/assets/1a5ba69a-2bce-4951-915f-b93733a3b31e" />
+
+<img width="1470" height="844" alt="Screenshot 2026-02-24 alle 08 34 52" src="https://github.com/user-attachments/assets/bc949274-0fc7-46e6-8539-78c8c6dc1398" />
+
+<img width="1470" height="847" alt="Screenshot 2026-02-24 alle 08 34 57" src="https://github.com/user-attachments/assets/cad8ca9b-9fc2-4e63-a43e-d0f617c34471" />
+
+<img width="1470" height="847" alt="Screenshot 2026-02-24 alle 08 35 04" src="https://github.com/user-attachments/assets/765e0c37-9efb-4ae8-bd77-d5609084236e" />
+
+<img width="1459" height="836" alt="Screenshot 2026-02-24 alle 08 35 08" src="https://github.com/user-attachments/assets/82e664a0-2f04-4664-99c7-2d6fe8334d85" />
+
+<img width="1470" height="838" alt="Screenshot 2026-02-24 alle 08 35 13" src="https://github.com/user-attachments/assets/f3a4fc45-01d0-4d68-b504-65cd114e0f61" />
+
+<img width="1470" height="839" alt="Screenshot 2026-02-24 alle 08 35 18" src="https://github.com/user-attachments/assets/68dacd3e-d921-4b57-a8c8-f19bf71f5c35" />
+
+<img width="1470" height="836" alt="Screenshot 2026-02-24 alle 08 35 24" src="https://github.com/user-attachments/assets/1833d024-d5b3-4a4e-af37-5b59ae80eeba" />
+
+<img width="1470" height="852" alt="Screenshot 2026-02-24 alle 08 35 28" src="https://github.com/user-attachments/assets/a570128f-edab-4e65-b38d-39bab9c85fcd" />
+
+<img width="1470" height="836" alt="Screenshot 2026-02-24 alle 08 35 39" src="https://github.com/user-attachments/assets/55bab00e-287b-4e03-a219-4cf57bdb3e90" />
+
+<img width="1460" height="851" alt="Screenshot 2026-02-24 alle 08 35 47" src="https://github.com/user-attachments/assets/70004c25-1d15-4ca2-8f0d-9af6dc540908" />
+
+<img width="1470" height="854" alt="Screenshot 2026-02-24 alle 08 35 53" src="https://github.com/user-attachments/assets/f9643cee-e4a1-42a2-aac3-6364023dd73e" />
+
 ***
 
 **Made with ❤️ for secure web applications**
