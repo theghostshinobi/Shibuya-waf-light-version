@@ -1,4 +1,4 @@
-<img width="1470" height="844" alt="Screenshot 2026-02-24 alle 08 33 19" src="https://github.com/user-attachments/assets/2b4fe1ba-0bf6-41c9-a7e5-feaedf55eeb0" /><img width="1456" height="821" alt="Screenshot 2026-02-24 alle 08 34 07" src="https://github.com/user-attachments/assets/75208341-785d-40ab-a636-9becb0983b7c" /># SHIBUYA WAF
+ SHIBUYA WAF
 
 **Version:** 1.0  
 **Release Date:** February 14, 2026  
@@ -873,9 +873,6 @@ A: Navigate to the `ML Engine` tab in your Dashboard. You can lower the Anomaly 
 ---
 
 *Built with precision. Defend your infrastructure.*
-
-
-<img width="775" height="417" alt="Screenshot 2026-02-24 alle 08 33 12" src="https://github.com/user-attachments/assets/f0af00fd-a977-4a01-ad8f-457d298ea8bf" />
 
 <img width="1470" height="844" alt="Screenshot 2026-02-24 alle 08 33 19" src="https://github.com/user-attachments/assets/fb508ca9-1dd8-4a8d-8f87-cca74cc140ca" />
 
